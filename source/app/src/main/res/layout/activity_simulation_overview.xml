@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="a"
+            type="graduate.itdreams.android.ui.main.simulation.SimulationOverviewActivity" />
+
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.simulation.SimulationOverviewViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_app">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_325sdp"
+            android:stateListAnimator="@null">
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                app:layout_scrollFlags="scroll"
+                android:animateLayoutChanges="true">
+
+
+                <LinearLayout
+                    android:id="@+id/main"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:context=".ui.main.simulation.SimulationOverviewActivity">
+                    <FrameLayout
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_180sdp"
+                        android:background="@drawable/bg_overview">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/btnBack"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:src="@drawable/ic_back"
+                                android:background="@drawable/bg_white_round"
+                                android:layout_margin="@dimen/_10sdp"/>
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:layout_margin="@dimen/_10sdp"
+                                android:layout_weight="1"/>
+                            <ImageView
+                                android:id="@+id/iconRight"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:src="@drawable/ic_more"
+                                android:background="@drawable/bg_white_round"
+                                android:layout_margin="@dimen/_10sdp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|bottom"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:padding="@dimen/_5sdp"
+                            android:orientation="vertical"
+                            android:background="@drawable/bg_white_transparent_5">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Khám phá ngay!"
+                                style="@style/Text_12_Bold_Black"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:paddingHorizontal="@dimen/_6sdp"
+                                android:paddingVertical="@dimen/_3sdp"
+                                android:text="Bắt đầu"
+                                android:onClick="@{v -> a.onStartClick()}"
+                                android:background="@drawable/bg_btn_green_radius_5"
+                                style="@style/Text_12_Bold_White" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+
+                </LinearLayout>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/toolbarCollapse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:background="@color/bg_app">
+                    <ImageView
+                        android:id="@+id/btnBackCollapsed"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_back"
+                        android:layout_margin="@dimen/_5sdp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:paddingHorizontal="@dimen/_6sdp"
+                        android:paddingVertical="@dimen/_3sdp"
+                        android:text="Bắt đầu"
+                        android:onClick="@{v -> a.onStartClick()}"
+                        android:background="@drawable/bg_btn_green_radius_5"
+                        style="@style/Text_14_Bold_White" />
+                    <ImageView
+                        android:id="@+id/btnMoreCollapsed"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/ic_more"
+                        android:layout_margin="@dimen/_5sdp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="pin"
+                    app:layout_scrollFlags="enterAlways">
+
+                    <TextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Text_16_Bold_Black"
+                        android:text="@{vm.title}"
+                        android:layout_gravity="center"
+                        android:maxLines="2"
+                        android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tvAuthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/Text_12_Normal_Black"
+                        android:textColor="@color/text_gray"
+                        android:text="@{vm.author}"
+                        android:textAllCaps="true"
+                        android:layout_gravity="center"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvEstimatedTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_15sdp"
+                            android:text="@{vm.estimatedTime}"
+                            android:textColor="@color/black"
+                            android:drawableEnd="@drawable/ic_hourglass"
+                            android:drawablePadding="@dimen/_5sdp"/>
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:background="#00B14F"
+                            android:layout_marginVertical="@dimen/_2sdp"
+                            android:layout_marginHorizontal="@dimen/_4sdp"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_15sdp"
+                            android:text="@{vm.participantQuantity.toString()}"
+                            android:textColor="@color/black"
+                            android:drawableEnd="@drawable/ic_users"
+                            android:drawablePadding="@dimen/_5sdp"/>
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:background="#00B14F"
+                            android:layout_marginVertical="@dimen/_2sdp"
+                            android:layout_marginHorizontal="@dimen/_4sdp"/>
+                        <TextView
+                            android:id="@+id/tvRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_15sdp"
+                            android:text="@{vm.rating}"
+                            android:textColor="@color/black"
+                            android:drawableEnd="@drawable/ic_star"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_15sdp"
+                            android:text="đánh giá"
+                            android:textColor="@color/black"/>
+                    </LinearLayout>
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/tabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:tabMode="scrollable"
+                        app:tabTextColor="@color/text_gray"
+                        app:tabSelectedTextColor="@color/text_green"
+                        app:tabTextAppearance="@style/Text_12_Normal_Black"/>
+                </LinearLayout>
+            </FrameLayout>
+
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg_app"
+            android:fillViewport="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bg_app"
+                android:layout_marginBottom="@dimen/_20sdp"/>
+
+        </androidx.core.widget.NestedScrollView>
+        <FrameLayout
+            android:id="@+id/fullscreenContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:visibility="gone" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
+

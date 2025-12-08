@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="a"
+            type="graduate.itdreams.android.ui.main.login.LoginActivity" />
+
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.login.LoginViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="24dp"
+                android:onClick="hideKeyboard">
+
+            <ImageView
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:src="@drawable/logo_itdreams"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chào mừng bạn đến với ITDreams"
+                style="@style/Text_14_Bold_Black"
+                android:layout_margin="@dimen/_12sdp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login"
+                style="@style/Text_16_Bold_Black"
+                android:layout_margin="@dimen/_12sdp"/>
+
+
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                style="@style/Text_12_Normal_Black"
+                android:background="@drawable/bg_text_box_un_select"
+                android:hint="Email"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:textColorHint="@color/text_hint"
+                android:drawableStart="@drawable/ic_email"
+                android:drawablePadding="@dimen/_12sdp"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"/>
+
+            <TextView
+                android:id="@+id/mgs_er_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text_Error"
+                android:text="@string/err_email"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/_23sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:visibility="gone"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                style="@style/Text_12_Normal_Black"
+                app:endIconMode="password_toggle"
+                app:hintEnabled="false"
+                android:layout_marginTop="30dp">
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:hint="@string/password"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:textColorHint="@color/text_hint"
+                    android:drawableStart="@drawable/lock"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:inputType="textPassword"
+                    android:drawableEnd="@drawable/eye_closed"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:singleLine="true"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/mgs_er_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Text_Error"
+                android:text="@string/err_password"
+                android:layout_gravity="start"
+
+                android:layout_marginStart="@dimen/_23sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:visibility="gone"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:layout_margin="@dimen/_20sdp"
+                android:layout_gravity="end"
+                android:text="Quên mật khẩu ?"
+                android:textColor="@color/text_app"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                style="@style/Text_12_Bold_White"
+                android:text="@string/login"
+                android:background="@drawable/bg_btn_radius_25"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:onClick="@{v -> a.onLoginClick()}"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:src="@drawable/google"
+                    android:gravity="center"
+                    android:padding="@dimen/_6sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:onClick="@{v -> a.onGoogleLoginClick()}"/>
+
+            <View
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="@dimen/_2sdp"
+                android:background="@color/line_app"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/_12sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bạn chưa có tài khoản ?"
+                        style="@style/Text_12_Normal_Black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12ssp"
+                        android:text="Đăng kí ngay"
+                        android:textColor="@color/text_app"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:onClick="@{v -> a.onSignUpClick()}"/>
+                </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                android:text="Trải nghiệm không cần đăng nhập"
+                android:textColor="@color/text_app"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_margin="@dimen/_12sdp"
+                android:onClick="@{v -> a.onBackMainActivity()}"/>
+        </LinearLayout>
+
+        </ScrollView>
+    </RelativeLayout>
+</layout>

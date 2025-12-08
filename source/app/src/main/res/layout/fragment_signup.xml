@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="f"
+            type="graduate.itdreams.android.ui.main.register.SignUpFragment" />
+
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.register.SignUpViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingBottom="24dp"
+                android:onClick="hideKeyboard">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đăng ký tài khoản"
+                    style="@style/Text_16_Bold_Black"
+                    android:layout_margin="@dimen/_12sdp"/>
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:hint="@string/name"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:textColorHint="@color/text_hint"
+                    android:drawableStart="@drawable/ic_name"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:singleLine="true"
+                    />
+
+                <TextView
+                    android:id="@+id/mgs_er_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_name"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+                <EditText
+                    android:id="@+id/birthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:drawableStart="@drawable/ic_calendar"
+                    android:hint="Ngày sinh"
+                    android:focusable="false"
+                    android:clickable="true"
+                    />
+
+                <EditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:hint="Username"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:textColorHint="@color/text_hint"
+                    android:drawableStart="@drawable/ic_name"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:singleLine="true"
+                    />
+                <TextView
+                    android:id="@+id/mgs_er_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_username"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:hint="@string/email"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:textColorHint="@color/text_hint"
+                    android:drawableStart="@drawable/ic_mail"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:singleLine="true"
+                    />
+
+                <TextView
+                    android:id="@+id/mgs_er_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_email"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+
+                <EditText
+                    android:id="@+id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    style="@style/Text_12_Normal_Black"
+                    android:background="@drawable/bg_text_box_un_select"
+                    android:hint="@string/phone"
+                    android:paddingHorizontal="@dimen/_12sdp"
+                    android:textColorHint="@color/text_hint"
+                    android:drawableStart="@drawable/phone"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    android:singleLine="true"
+                    android:inputType="phone"
+                    />
+                <TextView
+                    android:id="@+id/mgs_er_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_phone"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    app:endIconMode="password_toggle"
+                    app:hintEnabled="false">
+                    <EditText
+                        android:id="@+id/password"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        style="@style/Text_12_Normal_Black"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:textColorHint="@color/text_hint"
+                        android:background="@drawable/bg_text_box_un_select"
+                        android:drawableStart="@drawable/lock"
+                        android:drawablePadding="@dimen/_12sdp"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <TextView
+                    android:id="@+id/mgs_er_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_password"
+                    android:layout_gravity="start"
+                    android:layout_marginHorizontal="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_12sdp"
+                    app:endIconMode="password_toggle"
+                    app:hintEnabled="false">
+                    <EditText
+                        android:id="@+id/re_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_40sdp"
+                        style="@style/Text_12_Normal_Black"
+                        android:background="@drawable/bg_text_box_un_select"
+                        android:hint="@string/repassword"
+                        android:paddingHorizontal="@dimen/_12sdp"
+                        android:textColorHint="@color/text_hint"
+                        android:drawableStart="@drawable/lock"
+                        android:drawablePadding="@dimen/_12sdp"
+                        android:inputType="textPassword"
+                        android:singleLine="true"
+                        />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/mgs_er_re_password"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Text_Error"
+                    android:text="@string/err_password_3"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="@dimen/_23sdp"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:visibility="gone"/>
+
+                <TextView
+                    style="@style/Text_12_Bold_White"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:background="@drawable/bg_btn_radius_25"
+                    android:gravity="center"
+                    android:onClick="@{v -> f.onSignUpClick()}"
+                    android:padding="@dimen/_6sdp"
+                    android:text="@string/signup" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="@dimen/_12sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bạn đã có tài khoản ?"
+                        style="@style/Text_12_Normal_Black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/_12ssp"
+                        android:text="Đăng nhập ngay"
+                        android:textColor="@color/text_app"
+                        android:layout_marginStart="@dimen/_12sdp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_2sdp"
+                    android:background="@color/line_app"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="Trải nghiệm không cần đăng nhập"
+                    android:textColor="@color/text_app"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_margin="@dimen/_12sdp"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </RelativeLayout>
+</layout>

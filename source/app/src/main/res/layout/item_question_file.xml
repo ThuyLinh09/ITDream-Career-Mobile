@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_5sdp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            style="@style/Text_16_Bold_Black"
+            android:text="Câu hỏi: " />
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_black"
+            style="@style/Text_12_Normal_Black"
+            android:text="Câu hỏi: " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/btnUploadFile"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_stroke_green_dash_radius_2sdp"
+        android:layout_marginHorizontal="@dimen/_40sdp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_upload"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nhấn để tải file"
+            style="@style/Text_12_Normal_Black"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvFileName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginStart="@dimen/_40sdp"
+            />
+        <TextView
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gửi"
+            android:layout_gravity="end"
+            android:background="@drawable/bg_btn_blue_radius_5"
+            style="@style/Text_12_Bold_White"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:paddingHorizontal="@dimen/_10sdp"/>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/answerPdf"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_pdf_small"
+        android:layout_marginHorizontal="@dimen/_40sdp"/>
+
+</LinearLayout>

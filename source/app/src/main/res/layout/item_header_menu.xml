@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="a"
+            type="graduate.itdreams.android.ui.main.taskdetail.TaskDetailActivity" />
+
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.taskdetail.TaskDetailViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_task"
+        android:padding="@dimen/_10sdp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{vm.simulationTitle}"
+            style="@style/Text_24_Bold_White"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:max="100"
+            android:progress="@{vm.simulationPercent.intValue()}"
+            android:progressTint="@color/white"
+            android:progressBackgroundTint="@color/white"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"Hoàn thành " + (vm.simulationPercent != null ? vm.simulationPercent.intValue() : 0) + "%"}'
+            style="@style/Text_14_Normal_White"/>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="item_background">#3CA3AF</color>
+    <color name="title_background">#C9B7C8</color>
+    <color name="primary_color">#0D72FF</color>
+    <color name="secondary_color">#ffffff</color>
+    <color name="tertiary_color">#F5F5F5</color>
+    <color name="bg_logo">#1A483F</color>
+    <color name="bg_btn">#429E9D</color>
+    <color name="bg_app">#FFFFFFFF</color>
+    <color name="bg_task">#108986</color>
+
+    <color name="stroke_avatar">#3979DB</color>
+    <color name="text_black">#FF000000</color>
+    <color name="bg_second">#F4F5F5</color>
+    <color name="text_error">#DD2C34</color>
+    <color name="text_second">#F5F5F5</color>
+    <color name="text_hint">#959595</color> // ic
+    <color name="text_app">#108986</color>
+    <color name="bg_text_box">#F5F5F5</color>
+    <color name="tag">#F4F4F4</color>
+    <color name="no_update">#FF7506</color>
+    <color name="line">#F5F5F5</color>
+    <color name="line_app">#C1EBEA</color>
+    <color name="gray">#959595</color>
+    <color name="text_gray">#6F6E6E</color>
+    <color name="text_green">#0C6F30</color>
+    <color name="star">#FFC107</color>
+    <color name="star_tin">#4DFFC107</color>
+    <color name="white_transparent_70">#B3FFFFFF</color>
+</resources>

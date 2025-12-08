@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="f"
+            type="graduate.itdreams.android.ui.main.taskdetail.review.ReviewSimulationFragment"/>
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.taskdetail.review.ReviewSimulationViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:text="Đánh giá bài mô phỏng"
+            android:paddingBottom="@dimen/_10sdp"
+            style="@style/Text_20_Bold_Black"
+            android:layout_gravity="center"/>
+        <!-- Rating stars -->
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_gravity="center"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="0"
+            android:isIndicator="false"
+            android:progressTint="@color/star"
+            android:secondaryProgressTint="@color/star"
+            android:progressBackgroundTint="@color/star_tin"
+            android:scrollbarSize="0dp"/>
+
+        <!-- Comment input -->
+        <EditText
+            android:id="@+id/edtComment"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:hint="Nhập bình luận..."
+            android:gravity="top"
+            android:minHeight="120dp"
+            android:background="@android:drawable/edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Button -->
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:text="Gửi đánh giá"
+            android:onClick="@{() -> f.onReviewClick()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</layout>

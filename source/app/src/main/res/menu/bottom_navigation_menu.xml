@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_selector"
+        android:title="@string/home"/>
+    <item
+        android:id="@+id/top_comment"
+        android:enabled="true"
+        android:icon="@drawable/ic_achievement_selector"
+        android:title="@string/achievement"/>
+    <item
+        android:id="@+id/notification"
+        android:enabled="true"
+        android:icon="@drawable/ic_notificate_selector"
+        android:title="@string/notification"/>
+    <item
+        android:id="@+id/account"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile_selector"
+        android:title="@string/account"/>
+</menu>

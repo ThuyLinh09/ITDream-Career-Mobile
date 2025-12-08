@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">ITDreams</string>
+    <string name="msg_loading">Xin chờ...</string>
+
+    <!--Network error-->
+    <string name="newtwork_error">Không thể kết nối, vui lòng kiểm tra kết nối mạng của bạn.</string>
+    <string name="newtwork_error_button_retry">Thử lại</string>
+    <string name="newtwork_error_button_exit">Thoát</string>
+    <string name="home">Trang chủ</string>
+    <string name="cv_profile">CV &amp; Profile</string>
+    <string name="achievement">Thành tựu</string>
+    <string name="notification">Thông báo</string>
+    <string name="account">Tài Khoản</string>
+    <string name="please_login">Vui lòng đăng nhập</string>
+    <string name="login">Đăng nhập</string>
+    <string name="phone">Phone</string>
+    <string name="password">Mật Khẩu</string>
+    <string name="repassword">Nhập lại mật Khẩu</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="signup">Đăng ký</string>
+    <string name="err_name">Hãy cho chúng tôi biết tên của bạn</string>
+    <string name="err_username">Hãy đặt username của bạn</string>
+    <string name="err_email">Hãy cho chúng tôi biết email của bạn</string>
+    <string name="err_phone">Hãy cho chúng tôi biết số điện thoại của bạn</string>
+    <string name="err_password">Mật khẩu không được để trống</string>
+    <string name="err_email_2">Địa chỉ email không đúng định dạng</string>
+    <string name="err_phone_2">Số điện thoại phải gồm 10 số và bắt đầu bằng số 0</string>
+    <string name="err_password_2">Mật khẩu phải từ 8 kí tự trở lên, có ít nhất 1 kí tự thường, 1 kí tự hoa, 1 kí tự số và 1 kí tự đặc biệt</string>
+    <string name="err_password_3">Mật khẩu không khớp</string>
+
+    <string name="signup_success">Đăng ký tài khoản thành công</string>
+    <string name="signup_un_success">Đăng kí tài khoản không thành công</string>
+
+    <string name="update_success">Cập nhật thông tin thành công</string>
+    <string name="update_un_success">Cập nhật thông tin thất bại</string>
+
+    <string name="login_success">Đăng nhập thành công</string>
+    <string name="login_un_success">Số điện thoại hoặc mật khẩu không đúng</string>
+    <string name="edit">Sửa</string>
+    <string name="no_update">Chưa cập nhật</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="open">Mở</string>
+    <string name="close">Đóng</string>
+
+    <!-- Image -->
+    <string name="update_fail">Cập nhật thât bại</string>
+    <string name="invalid_image">File ảnh không hợp lệ</string>
+
+    <string name="socket_error">Lỗi socket</string>
+</resources>

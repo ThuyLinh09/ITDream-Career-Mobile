@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="f"
+            type="graduate.itdreams.android.ui.main.simulation.rate.RateFragment"/>
+        <variable
+            name="vm"
+            type="graduate.itdreams.android.ui.main.simulation.rate.RateViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_rate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+</layout>
