@@ -73,7 +73,12 @@ public class OverviewFragment extends BaseFragment<FragmentOverviewBinding, Over
         player = new ExoPlayer.Builder(getContext()).build();
         binding.playerView.setPlayer(player);
 
-        String fullUrl = BuildConfig.URL_LOAD_VIDEO + videoUrl;
+        String fullUrl;
+        if (videoUrl.startsWith("http://") || videoUrl.startsWith("https://")) {
+            fullUrl = videoUrl; // dùng trực tiếp
+        } else {
+            fullUrl = BuildConfig.URL_LOAD_VIDEO + videoUrl; // ghép với server
+        }
         MediaItem mediaItem = MediaItem.fromUri(Uri.parse(fullUrl));
 
         player.setMediaItem(mediaItem);

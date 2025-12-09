@@ -251,12 +251,10 @@ public class SubTaskViewModel extends BaseFragmentViewModel {
                 .subscribe(
                         response -> {
                             hideLoading();
-                            showNormalMessage("Hoàn thành nhiệm vụ");
-                            completeSuccess.setValue(true);
+                            showNormalMessage("Làm mới nhiệm vụ");
                         }, throwable -> {
                             hideLoading();
                             Timber.e(throwable);
-                            completeSuccess.setValue(false);
 
                             if (throwable instanceof HttpException && ((HttpException) throwable).code() == 400) {
                                 HttpException httpException = (HttpException) throwable;
