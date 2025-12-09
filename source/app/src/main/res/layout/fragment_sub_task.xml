@@ -15,163 +15,178 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginHorizontal="@dimen/_30sdp"
-            android:text="@{vm.subTaskDetail.title}"
-            android:paddingBottom="@dimen/_10sdp"
-            style="@style/Text_24_Bold_Black"
-            android:layout_gravity="center"/>
-        <TextView
-            android:id="@+id/content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{vm.subTaskDetail.description}"
-            style="@style/Text_12_Normal_Black"
-            android:layout_gravity="center"/>
-        <FrameLayout
-            android:id="@+id/video_container"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp">
-
-            <com.google.android.exoplayer2.ui.PlayerView
-                android:id="@+id/player_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:controller_layout_id="@layout/custom_controller"
-                app:use_controller="true"
-                app:resize_mode="fit"/>
-
-        </FrameLayout>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
         <LinearLayout
-            android:id="@+id/documentButton"
+            android:id="@+id/fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            android:padding="@dimen/_10sdp">
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Tài liệu"
-                style="@style/Text_16_Bold_Black"/>
-            <ImageView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:src="@drawable/ic_pdf"
-                android:onClick="@{v->f.viewFileClick()}"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutQuestionFileAndText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:visibility="gone"
-            android:orientation="vertical">
+                android:textAlignment="center"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:text="@{vm.subTaskDetail.title}"
+                android:paddingBottom="@dimen/_10sdp"
+                style="@style/Text_24_Bold_Black"
+                android:layout_gravity="center"/>
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/content"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Kiểm tra kiến thức"
-                style="@style/Text_16_Bold_Black"/>
+                android:text="@{vm.subTaskDetail.description}"
+                style="@style/Text_12_Normal_Black"
+                android:layout_gravity="center"/>
+            <FrameLayout
+                android:id="@+id/video_container"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_200sdp"
+                android:visibility="gone"
+                >
+
+                <com.google.android.exoplayer2.ui.PlayerView
+                    android:id="@+id/player_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:controller_layout_id="@layout/custom_controller"
+                    app:use_controller="true"
+                    app:resize_mode="fit"/>
+
+            </FrameLayout>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvQuestionFileAndText"
+                android:id="@+id/rcvContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
                 />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutQuestionQuiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_5sdp"
-            android:visibility="gone"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kiểm tra kiến thức"
-                style="@style/Text_16_Bold_Black"/>
             <LinearLayout
+                android:id="@+id/documentButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_quiz"
-                android:padding="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:padding="@dimen/_10sdp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tài liệu"
+                    style="@style/Text_16_Bold_Black"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:src="@drawable/ic_pdf"
+                    android:onClick="@{v->f.viewFileClick()}"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutQuestionFileAndText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:visibility="gone"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kiểm tra kiến thức"
+                    style="@style/Text_16_Bold_Black"/>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvQuestionQuiz"
+                    android:id="@+id/rcvQuestionFileAndText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutQuestionQuiz"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:visibility="gone"
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/btnNext"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tiếp tục"
-                    android:enabled="false"
-                    android:layout_gravity="end"
-                    android:background="@drawable/bg_btn_next_selector"
-                    style="@style/Text_12_Bold_White"
-                    android:paddingVertical="@dimen/_5sdp"
-                    android:paddingHorizontal="@dimen/_10sdp"/>
+                    android:text="Kiểm tra kiến thức"
+                    style="@style/Text_16_Bold_Black"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_quiz"
+                    android:padding="@dimen/_5sdp"
+                    android:orientation="vertical">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcvQuestionQuiz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false"
+                        />
+                    <TextView
+                        android:id="@+id/btnNext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiếp tục"
+                        android:enabled="false"
+                        android:layout_gravity="end"
+                        android:background="@drawable/bg_btn_next_selector"
+                        style="@style/Text_12_Bold_White"
+                        android:paddingVertical="@dimen/_5sdp"
+                        android:paddingHorizontal="@dimen/_10sdp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{vm.completeSuccess ? View.GONE : View.VISIBLE}"
+                android:text="Bạn còn câu hỏi chưa hoàn thành"
+                android:layout_gravity="center"
+                style="@style/Text_12_Normal_Black"
+                android:textColor="@color/text_error"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:paddingHorizontal="@dimen/_10sdp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/btnRestart"
+                    android:layout_width="@dimen/_85sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:visibility="invisible"
+                    android:gravity="center"
+                    android:text="Làm lại"
+                    android:background="@drawable/bg_white_stroke_green"
+                    style="@style/Text_12_Bold_Black"
+                    />
+                <TextView
+                    android:id="@+id/btnComplete"
+                    android:layout_width="@dimen/_85sdp"
+                    android:layout_height="@dimen/_25sdp"
+                    android:gravity="center"
+                    android:visibility="invisible"
+                    android:text="Hoàn thành"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/bg_btn_green_radius_5"
+                    style="@style/Text_12_Bold_White"/>
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{vm.completeSuccess ? View.GONE : View.VISIBLE}"
-            android:text="Bạn còn câu hỏi chưa hoàn thành"
-            android:layout_gravity="center"
-            style="@style/Text_12_Normal_Black"
-            android:textColor="@color/text_error"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:paddingHorizontal="@dimen/_10sdp"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/btnRestart"
-                android:layout_width="@dimen/_85sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_5sdp"
-                android:visibility="invisible"
-                android:gravity="center"
-                android:text="Làm lại"
-                android:background="@drawable/bg_white_stroke_green"
-                style="@style/Text_12_Bold_Black"
-                />
-            <TextView
-                android:id="@+id/btnComplete"
-                android:layout_width="@dimen/_85sdp"
-                android:layout_height="@dimen/_25sdp"
-                android:gravity="center"
-                android:visibility="invisible"
-                android:text="Hoàn thành"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:background="@drawable/bg_btn_green_radius_5"
-                style="@style/Text_12_Bold_White"/>
-        </LinearLayout>
-
+        <FrameLayout
+            android:id="@+id/fullscreenContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#000"
+            android:visibility="gone" />
     </LinearLayout>
 
 

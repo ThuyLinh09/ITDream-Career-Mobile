@@ -64,7 +64,7 @@ public class TaskDetailViewModel extends BaseViewModel {
     }
     public void fetchListTask(Long simulationId) {
         showLoading();
-        compositeDisposable.add(repository.getApiService().getTaskList(simulationId)
+        compositeDisposable.add(repository.getApiService().getTaskList(simulationId, 100)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .retryWhen(throwable ->

@@ -102,7 +102,7 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
                     binding.documentButton.setVisibility(View.VISIBLE);
                 }
                 if(responseSubtaskDetail.getVideoPath() != null){
-                    binding.playerView.setVisibility(View.VISIBLE);
+                    binding.videoContainer.setVisibility(View.VISIBLE);
                     loadVideo(responseSubtaskDetail.getVideoPath());
                 }
             }
@@ -136,6 +136,13 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
             RestartTaskRequest request = new RestartTaskRequest();
             request.setTaskId(subTaskId);
             viewModel.restartTask(request);
+            requireActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit();
+
         });
 
     }
@@ -167,14 +174,9 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
 
     }
     private void toggleFullscreen() {
-        Activity activity = getActivity();
-        if (activity == null) return;
 
-        FrameLayout fullscreenContainer = activity.findViewById(R.id.fullscreenContainer);
-        View appBar = activity.findViewById(R.id.appbar);
-        View nestedScroll = activity.findViewById(R.id.nestedScrollView);
-
-        if (fullscreenContainer == null || appBar == null || nestedScroll == null) return;
+        FrameLayout fullscreenContainer = binding.fullscreenContainer;
+        View fragment = binding.fragment;
 
         if (!isFullscreen) {
             // Lưu parent cũ và index cũ
@@ -192,12 +194,9 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
             fullscreenContainer.setVisibility(View.VISIBLE);
             fullscreenContainer.bringToFront();
 
-            // Xoay ngang màn hình
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-            // Ẩn các phần khác
-            appBar.setVisibility(View.GONE);
-            nestedScroll.setVisibility(View.GONE);
+            fragment.setVisibility(View.GONE);
 
             isFullscreen = true;
         } else {
@@ -206,13 +205,10 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
             fullscreenContainer.setVisibility(View.GONE);
 
             // Xoay dọc màn hình
-            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-            // Hiện lại các phần khác
-            appBar.setVisibility(View.VISIBLE);
-            nestedScroll.setVisibility(View.VISIBLE);
+            fragment.setVisibility(View.VISIBLE);
 
-            // Trả PlayerView về vị trí cũ
             originalParent.addView(binding.playerView, originalIndex);
 
             isFullscreen = false;
@@ -236,6 +232,7 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
         if(responseTaskQuestion.get(0).getQuestionType() != 3){
             binding.layoutQuestionFileAndText.setVisibility(View.VISIBLE);
             binding.btnComplete.setVisibility(View.VISIBLE);
+            binding.btnRestart.setVisibility(View.VISIBLE);
             binding.layoutQuestionQuiz.setVisibility(View.GONE);
             QuestionItemAdapter questionItemAdapter = new QuestionItemAdapter(responseTaskQuestion, listAnswerResponses, (item, position, callback) -> {
                 currentUploadCallback = callback;
@@ -260,6 +257,7 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
         }else {
             binding.layoutQuestionQuiz.setVisibility(View.VISIBLE);
             binding.btnComplete.setVisibility(View.VISIBLE);
+            binding.btnRestart.setVisibility(View.VISIBLE);
             binding.layoutQuestionFileAndText.setVisibility(View.GONE);
             QuestionQuizAdapter adapter = new QuestionQuizAdapter(responseTaskQuestion, currentIndex, isCorrect -> {
                 if(currentIndex + 1 == responseTaskQuestion.size()){
