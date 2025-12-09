@@ -97,7 +97,10 @@ public interface ApiService {
     Observable<ResponseWrapper<ResponseListObj<RateResponse>>> getRateList(@Query("simulationId") long simulationId);
 //  TASK
     @GET("/v1/task/student-list")
-    Observable<ResponseWrapper<ResponseListObj<TaskResponse>>> getTaskList(@Query("simulationId") long simulationId);
+    Observable<ResponseWrapper<ResponseListObj<TaskResponse>>> getTaskList(
+            @Query("simulationId") long simulationId,
+            @Query("size") int size
+    );
 
 //  SUBTASK
     @GET("/v1/task/student-get/{id}")

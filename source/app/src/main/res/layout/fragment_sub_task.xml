@@ -35,6 +35,20 @@
             android:text="@{vm.subTaskDetail.description}"
             style="@style/Text_12_Normal_Black"
             android:layout_gravity="center"/>
+        <FrameLayout
+            android:id="@+id/video_container"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp">
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/player_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:controller_layout_id="@layout/custom_controller"
+                app:use_controller="true"
+                app:resize_mode="fit"/>
+
+        </FrameLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvContent"
             android:layout_width="match_parent"
