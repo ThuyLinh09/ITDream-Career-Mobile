@@ -136,16 +136,22 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
             RestartTaskRequest request = new RestartTaskRequest();
             request.setTaskId(subTaskId);
             viewModel.restartTask(request);
-            requireActivity()
-                    .getSupportFragmentManager()
-                    .beginTransaction()
-                    .detach(this)
-                    .attach(this)
-                    .commit();
+            reloadData();
 
         });
 
     }
+    private void reloadData() {
+        questionLoaded = false;
+        answerLoaded = false;
+        cachedQuestions = null;
+        cachedAnswers = null;
+        currentIndex = 0;
+
+        viewModel.fetchSubtaskDetail(subTaskId);
+        viewModel.createSubtaskProgress(subTaskId);
+    }
+
     private void loadVideo(String videoUrl) {
         player = new ExoPlayer.Builder(getContext()).build();
         binding.playerView.setPlayer(player);
