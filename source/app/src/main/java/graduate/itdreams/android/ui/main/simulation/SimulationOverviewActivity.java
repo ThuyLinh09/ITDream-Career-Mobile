@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.appcompat.widget.PopupMenu;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -23,6 +24,7 @@ import graduate.itdreams.android.data.socket.dto.Message;
 import graduate.itdreams.android.databinding.ActivitySimulationOverviewBinding;
 import graduate.itdreams.android.di.component.ActivityComponent;
 import graduate.itdreams.android.ui.base.activity.BaseActivity;
+import graduate.itdreams.android.ui.main.home.FeedbackViewDialogFragment;
 import graduate.itdreams.android.ui.main.home.SimulationPagerAdapter;
 import graduate.itdreams.android.ui.main.taskdetail.TaskDetailActivity;
 
@@ -50,8 +52,31 @@ public class SimulationOverviewActivity extends BaseActivity<ActivitySimulationO
                 viewBinding.toolbar.setBackground(drawable);
             }
         });
+        viewBinding.iconRight.setOnClickListener(v -> {
+            PopupMenu popup = new PopupMenu(v.getContext(), v);
+            popup.getMenuInflater().inflate(R.menu.drawer_menu, popup.getMenu());
+
+            popup.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.nav_feedback) {
+                    viewModel.getFeedback(itemId);
+                    viewModel.getFeedback().observe(this, feedback -> {
+                        if (feedback != null) {
+                            FeedbackViewDialogFragment
+                                    .newInstance(feedback.getContent())
+                                    .show(getSupportFragmentManager(), "FeedbackDialog");
+                        }
+                    });
+
+                    return true;
+                }
+                return false;
+            });
+
+            popup.show();
+        });
 
     }
+
     private void setupToolbar() {
         viewBinding.appbar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShown = false;

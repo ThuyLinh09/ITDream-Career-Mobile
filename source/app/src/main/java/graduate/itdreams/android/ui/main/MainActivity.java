@@ -2,6 +2,7 @@ package graduate.itdreams.android.ui.main;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
@@ -90,6 +91,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
 //            viewModel.getApplication().getUser();
 //        }
     }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+    private void handleIntent(Intent intent) {
+        if (intent == null) return;
+
+        if (intent.getBooleanExtra("open_notification", false)) {
+            viewBinding.bottomNav.setSelectedItemId(R.id.notification);
+            handleFragment(NOTIFICATION);
+        }
+    }
     private void showNotification(String message) {
         NotificationManager notificationManager =
                 (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -102,11 +116,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainViewMode
             notificationManager.createNotificationChannel(channel);
         }
 
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("open_notification", true);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                this,
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ic_notificate_green)
                         .setContentTitle("Phản hồi bài mô phỏng")
                         .setContentText(message)
+                        .setContentIntent(pendingIntent)
                         .setAutoCancel(true);
 
         notificationManager.notify((int) System.currentTimeMillis(), builder.build());

@@ -1,6 +1,8 @@
 package graduate.itdreams.android.ui.main.taskdetail.review;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
@@ -11,12 +13,26 @@ import graduate.itdreams.android.data.model.api.request.review.ReviewSimulationR
 import graduate.itdreams.android.databinding.FragmentReviewSimulationBinding;
 import graduate.itdreams.android.di.component.FragmentComponent;
 import graduate.itdreams.android.ui.base.fragment.BaseFragment;
-import graduate.itdreams.android.ui.main.simulation.SimulationOverviewViewModel;
-import graduate.itdreams.android.ui.main.taskdetail.TaskDetailViewModel;
 
 public class ReviewSimulationFragment extends BaseFragment<FragmentReviewSimulationBinding, ReviewSimulationViewModel> {
     private Long simulationId;
     public void onReviewClick() {
+        if(binding.ratingBar.getRating() == 0f){
+            Toast.makeText(
+                    binding.getRoot().getContext(),
+                    "Bạn cần chọn số sao",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
+        if(binding.edtComment.getText().toString().trim().isEmpty()){
+            Toast.makeText(
+                    binding.getRoot().getContext(),
+                    "Bạn cần nhập nội dung",
+                    Toast.LENGTH_SHORT
+            ).show();
+            return;
+        }
 
         ReviewSimulationRequest request = new ReviewSimulationRequest();
         request.setSimulationId(simulationId);

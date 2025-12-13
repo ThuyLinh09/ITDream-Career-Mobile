@@ -18,11 +18,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import graduate.itdreams.android.BR;
 import graduate.itdreams.android.R;
 import graduate.itdreams.android.data.model.api.request.achievement.UpdateCertificateRequest;
 import graduate.itdreams.android.data.model.api.request.achievement.UploadCertificateRequest;
+import graduate.itdreams.android.data.model.api.response.simulation.AchievementResponse;
+import graduate.itdreams.android.data.model.api.response.simulation.SimulationResponse;
 import graduate.itdreams.android.databinding.FragmentAchievementBinding;
 import graduate.itdreams.android.di.component.FragmentComponent;
 import graduate.itdreams.android.ui.base.fragment.BaseFragment;
@@ -32,6 +36,9 @@ import graduate.itdreams.android.ui.main.simulation.SimulationOverviewActivity;
 import graduate.itdreams.android.ui.main.taskdetail.PdfActivity;
 
 public class AchievementFragment extends BaseFragment<FragmentAchievementBinding, AchievementViewModel> {
+    private List<AchievementResponse> fullList = new ArrayList<>();
+    private AchievementAdapter adapter;
+
     @Override
     protected void performDataBinding() {
         binding.setF(this);
@@ -45,6 +52,7 @@ public class AchievementFragment extends BaseFragment<FragmentAchievementBinding
         performDataBinding();
 
         customBtnSearch();
+        setupSearch();
 
         loadJobs();
         viewModel.forceLogout.observe(this, isLogout -> {
@@ -65,35 +73,89 @@ public class AchievementFragment extends BaseFragment<FragmentAchievementBinding
         viewModel.getPostList().observe(getViewLifecycleOwner(), postList -> {
             if (postList == null || postList.isEmpty()) return;
 
-            AchievementAdapter adapter = new AchievementAdapter(viewModel, item -> {
-                String titleSimulation = "Thành tựu " + item.getSimulation().getTitle();
-
-                if(item.getFilePath() == null){
-                    UploadCertificateRequest request = new UploadCertificateRequest();
-                    request.setSimulationName(item.getSimulation().getTitle());
-                    request.setUsername(item.getStudentName());
-                    viewModel.uploadCertificate(request);
-                    viewModel.getCertificateUrl().observe(getViewLifecycleOwner(), url ->{
-                        UpdateCertificateRequest updateCertificateRequest = new UpdateCertificateRequest();
-                        updateCertificateRequest.setId(item.getId());
-                        updateCertificateRequest.setFilePath(url);
-                        viewModel.updateAchievement(updateCertificateRequest);
-
-                        loadCertificate(url, titleSimulation);
-                    });
+            adapter = new AchievementAdapter(viewModel, item -> {
+                if(item.getSimulation() == null){
+                    Log.d("Achivement", "Chứng chỉ bạn chưa được lưu");
                 }else {
-                    loadCertificate(item.getFilePath(), titleSimulation);
-                }
+                    String titleSimulation = "Thành tựu " + item.getSimulation().getTitle();
 
+                    if(item.getFilePath() == null){
+                        UploadCertificateRequest request = new UploadCertificateRequest();
+                        request.setSimulationName(item.getSimulation().getTitle());
+                        request.setUsername(item.getStudentName());
+                        viewModel.uploadCertificate(request);
+                        viewModel.getCertificateUrl().observe(getViewLifecycleOwner(), url ->{
+                            UpdateCertificateRequest updateCertificateRequest = new UpdateCertificateRequest();
+                            updateCertificateRequest.setId(item.getId());
+                            updateCertificateRequest.setFilePath(url);
+                            viewModel.updateAchievement(updateCertificateRequest);
+
+                            loadCertificate(url, titleSimulation);
+                        });
+                    }else {
+                        loadCertificate(item.getFilePath(), titleSimulation);
+                    }
+                }
             });
-            adapter.setData(postList);
+            fullList.clear();
+            for (AchievementResponse item : postList) {
+                if (item != null) {
+                    fullList.add(item);
+                }
+            }
+
+            adapter.setData(fullList);
             binding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
             binding.recycleview.setAdapter(adapter);
             binding.swipeRefresh.setRefreshing(false);
         });
 
     }
+    private void setupSearch() {
+        binding.searchView.setOnQueryTextListener(
+            new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
 
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    filterList(query);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    filterList(newText);
+                    return true;
+                }
+            }
+        );
+    }
+    private void filterList(String keyword) {
+        if (adapter == null) return;
+
+        // Nếu chưa load data
+        if (fullList.isEmpty()) {
+            adapter.setData(fullList);
+            return;
+        }
+
+        // Clear search
+        if (keyword == null || keyword.trim().isEmpty()) {
+            adapter.setData(fullList);
+            return;
+        }
+
+        List<AchievementResponse> filteredList = new ArrayList<>();
+        String key = keyword.toLowerCase();
+
+        for (AchievementResponse item : fullList) {
+            if (item.getSimulation().getTitle() != null &&
+                    item.getSimulation().getTitle().toLowerCase().contains(key)) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setData(filteredList);
+    }
     private void loadCertificate(String pdfUrl, String title){
         if (pdfUrl != null) {
             Intent intent = new Intent(getContext(), PdfActivity.class);

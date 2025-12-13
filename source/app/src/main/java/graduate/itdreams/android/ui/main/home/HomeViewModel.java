@@ -1,6 +1,7 @@
 package graduate.itdreams.android.ui.main.home;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.util.Pair;
 
@@ -8,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,18 +98,39 @@ public class HomeViewModel extends BaseFragmentViewModel {
     public void loadImageForItem(Long itemId, String url) {
         if (bitmapCache.containsKey(itemId)) return; // đã có thì không tải lại
 
-        compositeDisposable.add(repository.getUploadApiService().loadFile(url)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(responseBody -> {
-                    InputStream inputStream = responseBody.byteStream();
-                    Bitmap bitmap = ImageUtils.getBitmap(inputStream);
+        if (url.startsWith("https://") || url.startsWith("http://")) {
+            new Thread(() -> {
+                try {
+                    URL imageUrl = new URL(url);
+                    HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(input);
+                    input.close();
                     if (bitmap != null) {
                         bitmapCache.put(itemId, bitmap);
                         imageLiveData.setValue(new Pair<>(itemId, bitmap));
                     }
-                }, throwable -> Log.e("ViewModel", "Lỗi tải ảnh: " + throwable.getMessage()))
-        );
+                } catch (Exception e) {
+                    Log.e("ProfileViewModel", "Lỗi khi tải ảnh từ URL: " + e.getMessage());
+                }
+            }).start();
+        }else {
+            compositeDisposable.add(repository.getUploadApiService().loadFile(url)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(responseBody -> {
+                        InputStream inputStream = responseBody.byteStream();
+                        Bitmap bitmap = ImageUtils.getBitmap(inputStream);
+                        if (bitmap != null) {
+                            bitmapCache.put(itemId, bitmap);
+                            imageLiveData.setValue(new Pair<>(itemId, bitmap));
+                        }
+                    }, throwable -> Log.e("ViewModel", "Lỗi tải ảnh: " + throwable.getMessage()))
+            );
+        }
+
     }
 
 }

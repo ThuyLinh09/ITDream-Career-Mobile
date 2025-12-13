@@ -18,7 +18,7 @@ android {
         buildConfigField "String", "BASE_URL", "\"https://api.itdreamcareer.io.vn\""
         buildConfigField "String", "URL_FILE", "\"https://media.itdreamcareer.io.vn\""
         buildConfigField "String", "URL_LOAD_VIDEO", "\"https://itcareer-socket.nd24.id.vn/live\""
-        buildConfigField "String", "WS_URL", "\"wss://useful-pins-actions-mozilla.trycloudflare.com/ws\""
+        buildConfigField "String", "WS_URL", "\"wss://awareness-strain-matches-header.trycloudflare.com/ws\""
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]

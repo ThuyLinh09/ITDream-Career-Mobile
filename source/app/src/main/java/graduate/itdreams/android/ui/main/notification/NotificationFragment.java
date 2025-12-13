@@ -25,6 +25,9 @@ public class NotificationFragment extends BaseFragment<FragmentNotificationBindi
         super.onCreateView(inflater, container, savedInstanceState);
         performDataBinding();
         loadNotifications();
+        binding.swipeRefresh.setOnRefreshListener(() -> {
+            viewModel.fetchNotificationList();
+        });
         return binding.getRoot();
     }
 

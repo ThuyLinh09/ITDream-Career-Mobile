@@ -1,5 +1,7 @@
 package graduate.itdreams.android.ui.main.simulation.overview;
 
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -36,9 +38,25 @@ public class OverviewAdapter extends RecyclerView.Adapter<OverviewAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(OverviewAdapter.ViewHolder holder, int position) {
+        holder.itemView.setOnClickListener(null);
         ItemTitleContentResponse item = overviewItemList.get(position);
         holder.binding.tvTitle.setText(item.getTitle());
-        holder.binding.tvContent.setText(item.getContent());
+        String html = item.getContent();
+        html = html.replace("\n    ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
+        html = html.replace("\n   ", "<br>&nbsp;&nbsp;&nbsp;");
+        html = html.replace("\n  ", "<br>&nbsp;&nbsp;");
+        html = html.replace("\n", "<br>");
+
+        holder.binding.tvContent.setText(
+
+                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+        );
+        holder.binding.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
+        holder.binding.tvContent.setLinksClickable(true);
+
+        holder.binding.tvContent.setFocusable(false);
+        holder.binding.tvContent.setClickable(true);
+        holder.binding.tvContent.setLongClickable(true);
     }
 
     @Override

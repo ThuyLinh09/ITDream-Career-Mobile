@@ -12,6 +12,7 @@ import graduate.itdreams.android.data.model.api.request.student.VerifyOtpRequest
 import graduate.itdreams.android.data.model.api.request.task.CompleteTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.RestartTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.TaskQuestionProgressRequest;
+import graduate.itdreams.android.data.model.api.response.feedback.FeedbackResponse;
 import graduate.itdreams.android.data.model.api.response.notification.NotificationResponse;
 import graduate.itdreams.android.data.model.api.response.question.TaskQuestionProgressResponse;
 import graduate.itdreams.android.data.model.api.response.question.TaskQuestionResponse;
@@ -143,4 +144,8 @@ public interface ApiService {
 //  NOTIFICATION
     @GET("/v1/notification/student-list")
     Observable<ResponseWrapper<List<NotificationResponse>>> getNotificationList();
+
+//  FEEDBACK
+    @GET("/v1/review-submission/student-get/{id}")
+    Observable<ResponseWrapper<FeedbackResponse>> getFeedback(@Path("id") Long id);
 }

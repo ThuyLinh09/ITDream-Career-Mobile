@@ -33,13 +33,14 @@
                 android:paddingBottom="@dimen/_10sdp"
                 style="@style/Text_24_Bold_Black"
                 android:layout_gravity="center"/>
+
             <TextView
                 android:id="@+id/content"
+                style="@style/Text_12_Normal_Black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.subTaskDetail.description}"
-                style="@style/Text_12_Normal_Black"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center"
+                app:htmlText="@{vm.subTaskDetail.description}" />
             <FrameLayout
                 android:id="@+id/video_container"
                 android:layout_width="match_parent"

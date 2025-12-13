@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_10sdp"
+    android:layout_margin="@dimen/_10sdp"
+    android:background="@drawable/bg_quiz">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phản hồi từ giảng viên"
+        android:layout_gravity="top|center"
+        style="@style/Text_16_Bold_Black"
+        android:layout_marginBottom="12dp"/>
+
+    <TextView
+        android:id="@+id/tvFeedbackContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bạn chưa có phản hồi"
+        android:background="@android:drawable/edit_text"
+        android:minHeight="120dp"
+        style="@style/Text_12_Normal_Black"
+        android:lineSpacingExtra="4dp"
+        android:textColor="#444444" />
+
+    <Button
+        android:id="@+id/btnClose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="Đóng"
+        android:layout_marginTop="@dimen/_5sdp" />
+
+</LinearLayout>
