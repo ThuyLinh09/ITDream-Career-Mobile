@@ -78,6 +78,12 @@
                     android:layout_marginTop="@dimen/_150sdp"
                     android:padding="8dp"
                     android:clipToPadding="false"/>
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thoát"
+                    android:background="@color/bg_btn"/>
             </com.google.android.material.navigation.NavigationView>
 
 

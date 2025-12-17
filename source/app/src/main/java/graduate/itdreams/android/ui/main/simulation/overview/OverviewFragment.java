@@ -51,7 +51,32 @@ public class OverviewFragment extends BaseFragment<FragmentOverviewBinding, Over
 
                 ItemTitleContentResponse itemDescription = gson.fromJson(descriptionJson, ItemTitleContentResponse.class);
                 binding.tvTitleDescription.setText(itemDescription.getTitle());
-                binding.description.setText(itemDescription.getContent());
+                binding.description.getSettings().setJavaScriptEnabled(true);
+                String html =
+                        "<html>" +
+                                "<head>" +
+                                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                                "<style>" +
+                                "html, body { " +
+                                "   margin: 0; " +
+                                "   padding: 0; " +
+                                "} " +
+                                "ul,ol{margin:0;padding-left:16px;}" +
+                                "li{margin:0;padding:0;}" +
+                                "</style>" +
+                                "</head>" +
+                                "<body>" +
+                                itemDescription.getContent() +
+                                "</body>" +
+                                "</html>";
+
+                binding.description.loadDataWithBaseURL(
+                        null,
+                        html,
+                        "text/html",
+                        "utf-8",
+                        null
+                );
 
                 Type listType = new TypeToken<List<ItemTitleContentResponse>>(){}.getType();
                 List<ItemTitleContentResponse> overviewList = gson.fromJson(overviewJson, listType);
@@ -61,7 +86,7 @@ public class OverviewFragment extends BaseFragment<FragmentOverviewBinding, Over
                 binding.rcvOverview.setAdapter(overviewAdapter);
 
                 if(response.getVideoPath() != null){
-                    binding.playerView.setVisibility(View.VISIBLE);
+                    binding.videoContainer.setVisibility(View.VISIBLE);
                     loadVideo(response.getVideoPath());
                 }
 

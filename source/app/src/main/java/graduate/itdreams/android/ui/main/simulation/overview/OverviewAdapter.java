@@ -41,22 +41,33 @@ public class OverviewAdapter extends RecyclerView.Adapter<OverviewAdapter.ViewHo
         holder.itemView.setOnClickListener(null);
         ItemTitleContentResponse item = overviewItemList.get(position);
         holder.binding.tvTitle.setText(item.getTitle());
-        String html = item.getContent();
-        html = html.replace("\n    ", "<br>&nbsp;&nbsp;&nbsp;&nbsp;");
-        html = html.replace("\n   ", "<br>&nbsp;&nbsp;&nbsp;");
-        html = html.replace("\n  ", "<br>&nbsp;&nbsp;");
-        html = html.replace("\n", "<br>");
+        holder.binding.tvContent.getSettings().setJavaScriptEnabled(true);  // nếu cần JS
+        String html =
+                "<html>" +
+                        "<head>" +
+                        "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                        "<style>" +
+                        "html, body { " +
+                        "   margin: 0; " +
+                        "   padding: 0; " +
+                        "} " +
+                        "ul,ol{margin:0;padding-left:16px;}" +
+                        "li{margin:0;padding:0;}" +
+                        "</style>" +
+                        "</head>" +
+                        "<body>" +
+                        item.getContent() +
+                        "</body>" +
+                        "</html>";
 
-        holder.binding.tvContent.setText(
-
-                Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+        holder.binding.tvContent.loadDataWithBaseURL(
+                null,
+                html,
+                "text/html",
+                "utf-8",
+                null
         );
-        holder.binding.tvContent.setMovementMethod(LinkMovementMethod.getInstance());
-        holder.binding.tvContent.setLinksClickable(true);
 
-        holder.binding.tvContent.setFocusable(false);
-        holder.binding.tvContent.setClickable(true);
-        holder.binding.tvContent.setLongClickable(true);
     }
 
     @Override

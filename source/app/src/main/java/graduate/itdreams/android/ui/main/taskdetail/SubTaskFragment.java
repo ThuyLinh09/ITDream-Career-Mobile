@@ -105,6 +105,35 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
                     binding.videoContainer.setVisibility(View.VISIBLE);
                     loadVideo(responseSubtaskDetail.getVideoPath());
                 }
+
+
+                binding.webViewDescription.getSettings().setJavaScriptEnabled(true);  // nếu cần JS
+                String html =
+                        "<html>" +
+                                "<head>" +
+                                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                                "<style>" +
+                                "html, body { " +
+                                "   margin: 0; " +
+                                "   padding: 0; " +
+                                "} " +
+                                "ul,ol{margin:0;padding-left:16px;}" +
+                                "li{margin:0;padding:0;}" +
+                                "</style>" +
+                                "</head>" +
+                                "<body>" +
+                                responseSubtaskDetail.getDescription() +
+                                "</body>" +
+                                "</html>";
+
+                binding.webViewDescription.loadDataWithBaseURL(
+                        null,
+                        html,
+                        "text/html",
+                        "utf-8",
+                        null
+                );
+
             }
         });
         viewModel.createSubtaskProgress(subTaskId);
