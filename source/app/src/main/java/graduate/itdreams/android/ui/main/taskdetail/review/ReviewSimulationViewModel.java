@@ -3,11 +3,15 @@ package graduate.itdreams.android.ui.main.taskdetail.review;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.Gson;
+
 import java.io.File;
 import java.util.List;
 
 import graduate.itdreams.android.MVVMApplication;
+import graduate.itdreams.android.R;
 import graduate.itdreams.android.data.Repository;
+import graduate.itdreams.android.data.model.api.ResponseWrapper;
 import graduate.itdreams.android.data.model.api.request.review.ReviewSimulationRequest;
 import graduate.itdreams.android.data.model.api.request.task.CompleteTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.TaskQuestionProgressRequest;
@@ -59,7 +63,19 @@ public class ReviewSimulationViewModel extends BaseFragmentViewModel {
                             Timber.e(throwable);
                             if (throwable instanceof HttpException && ((HttpException) throwable).code() == 400) {
                                 HttpException httpException = (HttpException) throwable;
-                                if (httpException.code() == 400) {
+                                try {
+                                    String errorBody = httpException.response()
+                                            .errorBody()
+                                            .string();
+
+                                    ResponseWrapper apiError = new Gson().fromJson(errorBody, ResponseWrapper.class);
+
+                                    if ("REVIEW-ERROR-0001".equals(apiError.getCode())) {
+                                        showNormalMessage("Bạn đã đánh giá nhiệm vụ này rồi");
+                                    }
+
+                                } catch (Exception e) {
+                                    showNormalMessage("Có lỗi xảy ra, vui lòng thử lại");
                                 }
                             }
                         }));

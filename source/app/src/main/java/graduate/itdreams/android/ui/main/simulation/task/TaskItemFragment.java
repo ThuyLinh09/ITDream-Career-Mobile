@@ -55,7 +55,32 @@ public class TaskItemFragment extends Fragment {
         //ItemTitleContentResponse itemName = gson.fromJson(task.getName(), ItemTitleContentResponse.class);
         if (task != null) {
             binding.tvTitleDescription.setText(task.getTitle());
-            binding.tvDescription.setText(task.getDescription());
+            binding.tvDescription.getSettings().setJavaScriptEnabled(true);  // nếu cần JS
+            String html =
+                    "<html>" +
+                            "<head>" +
+                            "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                            "<style>" +
+                            "html, body { " +
+                            "   margin: 0; " +
+                            "   padding: 0; " +
+                            "} " +
+                            "ul,ol{margin:0;padding-left:16px;}" +
+                            "li{margin:0;padding:0;}" +
+                            "</style>" +
+                            "</head>" +
+                            "<body>" +
+                            task.getDescription() +
+                            "</body>" +
+                            "</html>";
+
+            binding.tvDescription.loadDataWithBaseURL(
+                    null,
+                    html,
+                    "text/html",
+                    "utf-8",
+                    null
+            );
 
             String contentJson = task.getIntroduction();
             Type listType = new TypeToken<List<ItemTitleContentResponse>>(){}.getType();

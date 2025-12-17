@@ -100,7 +100,9 @@ public class SimulationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (bitmap != null) {
                 binding.ivLogo.setImageBitmap(bitmap);
             } else {
-                viewModel.loadImageForItem(item.getId(), item.getImagePath());
+                if(item.getImagePath() != null){
+                    viewModel.loadImageForItem(item.getId(), item.getImagePath());
+                }
             }
 
             binding.getRoot().setOnClickListener(v -> {

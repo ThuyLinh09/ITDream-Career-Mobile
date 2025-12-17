@@ -1,6 +1,8 @@
 package graduate.itdreams.android.ui.main.taskdetail;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -12,7 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
+import com.google.android.exoplayer2.ExoPlayer;
+import com.google.android.exoplayer2.MediaItem;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -24,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.davidea.flexibleadapter.databinding.BR;
+import graduate.itdreams.android.BuildConfig;
 import graduate.itdreams.android.R;
 import graduate.itdreams.android.data.model.api.request.task.CompleteTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.RestartTaskRequest;
@@ -41,6 +49,10 @@ import graduate.itdreams.android.ui.main.taskdetail.question.QuestionItemAdapter
 import graduate.itdreams.android.ui.main.taskdetail.question.QuestionQuizAdapter;
 
 public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTaskViewModel> {
+    private ExoPlayer player;
+    private boolean isFullscreen = false;
+    private ViewGroup originalParent;
+    private int originalIndex;
     private int currentIndex = 0;
     private SubTaskProgressResponse subTaskProgress;
     private File file;
@@ -89,6 +101,39 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
                 }else {
                     binding.documentButton.setVisibility(View.VISIBLE);
                 }
+                if(responseSubtaskDetail.getVideoPath() != null){
+                    binding.videoContainer.setVisibility(View.VISIBLE);
+                    loadVideo(responseSubtaskDetail.getVideoPath());
+                }
+
+
+                binding.webViewDescription.getSettings().setJavaScriptEnabled(true);  // nếu cần JS
+                String html =
+                        "<html>" +
+                                "<head>" +
+                                "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" +
+                                "<style>" +
+                                "html, body { " +
+                                "   margin: 0; " +
+                                "   padding: 0; " +
+                                "} " +
+                                "ul,ol{margin:0;padding-left:16px;}" +
+                                "li{margin:0;padding:0;}" +
+                                "</style>" +
+                                "</head>" +
+                                "<body>" +
+                                responseSubtaskDetail.getDescription() +
+                                "</body>" +
+                                "</html>";
+
+                binding.webViewDescription.loadDataWithBaseURL(
+                        null,
+                        html,
+                        "text/html",
+                        "utf-8",
+                        null
+                );
+
             }
         });
         viewModel.createSubtaskProgress(subTaskId);
@@ -120,7 +165,89 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
             RestartTaskRequest request = new RestartTaskRequest();
             request.setTaskId(subTaskId);
             viewModel.restartTask(request);
+            reloadData();
+
         });
+
+    }
+    private void reloadData() {
+        questionLoaded = false;
+        answerLoaded = false;
+        cachedQuestions = null;
+        cachedAnswers = null;
+        currentIndex = 0;
+
+        viewModel.fetchSubtaskDetail(subTaskId);
+        viewModel.createSubtaskProgress(subTaskId);
+    }
+
+    private void loadVideo(String videoUrl) {
+        player = new ExoPlayer.Builder(getContext()).build();
+        binding.playerView.setPlayer(player);
+
+        String fullUrl;
+        if (videoUrl.startsWith("http://") || videoUrl.startsWith("https://")) {
+            fullUrl = videoUrl; // dùng trực tiếp
+        } else {
+            fullUrl = BuildConfig.URL_LOAD_VIDEO + videoUrl; // ghép với server
+        }
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(fullUrl));
+
+        player.setMediaItem(mediaItem);
+        player.prepare();
+        //player.play();
+
+        ImageButton fullscreenButton = binding.playerView.findViewById(R.id.exo_fullscreen);
+        fullscreenButton.setOnClickListener(v -> {
+            toggleFullscreen();
+            if (isFullscreen) {
+                fullscreenButton.setImageResource(R.drawable.ic_fullscreen_exit);
+            } else {
+                fullscreenButton.setImageResource(R.drawable.ic_fullscreen);
+            }
+        });
+
+    }
+    private void toggleFullscreen() {
+
+        FrameLayout fullscreenContainer = binding.fullscreenContainer;
+        View fragment = binding.fragment;
+
+        if (!isFullscreen) {
+            // Lưu parent cũ và index cũ
+            originalParent = (ViewGroup) binding.playerView.getParent();
+            originalIndex = originalParent.indexOfChild(binding.playerView);
+
+            // Gỡ PlayerView khỏi fragment
+            originalParent.removeView(binding.playerView);
+
+            // Thêm PlayerView vào container fullscreen
+            fullscreenContainer.addView(binding.playerView,
+                    new FrameLayout.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT));
+            fullscreenContainer.setVisibility(View.VISIBLE);
+            fullscreenContainer.bringToFront();
+
+            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+            fragment.setVisibility(View.GONE);
+
+            isFullscreen = true;
+        } else {
+            // Thoát fullscreen
+            fullscreenContainer.removeView(binding.playerView);
+            fullscreenContainer.setVisibility(View.GONE);
+
+            // Xoay dọc màn hình
+            requireActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+            fragment.setVisibility(View.VISIBLE);
+
+            originalParent.addView(binding.playerView, originalIndex);
+
+            isFullscreen = false;
+        }
     }
     private void tryLoadUI() {
         if (!questionLoaded || !answerLoaded) return;
@@ -140,6 +267,7 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
         if(responseTaskQuestion.get(0).getQuestionType() != 3){
             binding.layoutQuestionFileAndText.setVisibility(View.VISIBLE);
             binding.btnComplete.setVisibility(View.VISIBLE);
+            binding.btnRestart.setVisibility(View.VISIBLE);
             binding.layoutQuestionQuiz.setVisibility(View.GONE);
             QuestionItemAdapter questionItemAdapter = new QuestionItemAdapter(responseTaskQuestion, listAnswerResponses, (item, position, callback) -> {
                 currentUploadCallback = callback;
@@ -164,6 +292,7 @@ public class SubTaskFragment extends BaseFragment<FragmentSubTaskBinding,SubTask
         }else {
             binding.layoutQuestionQuiz.setVisibility(View.VISIBLE);
             binding.btnComplete.setVisibility(View.VISIBLE);
+            binding.btnRestart.setVisibility(View.VISIBLE);
             binding.layoutQuestionFileAndText.setVisibility(View.GONE);
             QuestionQuizAdapter adapter = new QuestionQuizAdapter(responseTaskQuestion, currentIndex, isCorrect -> {
                 if(currentIndex + 1 == responseTaskQuestion.size()){

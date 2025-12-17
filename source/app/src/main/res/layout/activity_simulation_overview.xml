@@ -198,7 +198,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_15sdp"
-                            android:text="@{vm.participantQuantity.toString()}"
+                            android:text='@{vm.participantQuantity.toString() + " người xem"}'
                             android:textColor="@color/black"
                             android:drawableEnd="@drawable/ic_users"
                             android:drawablePadding="@dimen/_5sdp"/>

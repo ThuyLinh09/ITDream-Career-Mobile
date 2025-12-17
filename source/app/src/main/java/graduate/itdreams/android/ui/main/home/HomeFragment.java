@@ -27,6 +27,9 @@ import graduate.itdreams.android.ui.main.login.LoginActivity;
 import graduate.itdreams.android.ui.main.simulation.SimulationOverviewActivity;
 
 public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewModel> {
+    private List<SimulationResponse> fullList = new ArrayList<>();
+    private SimulationAdapter adapter;
+
     @Override
     protected void performDataBinding() {
         binding.setF(this);
@@ -38,10 +41,17 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         performDataBinding();
-
+        adapter = new SimulationAdapter(viewModel, item -> {
+            Intent intent = new Intent(getContext(), SimulationOverviewActivity.class);
+            intent.putExtra("item_id", item);
+            startActivity(intent);
+        });
+        binding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recycleview.setAdapter(adapter);
         customBtnSearch();
-
         loadJobs();
+        setupSearch();
+
         viewModel.forceLogout.observe(this, isLogout -> {
             if (Boolean.TRUE.equals(isLogout)) {
                 viewModel.logout();
@@ -50,26 +60,73 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding, HomeViewMode
             }
         });
         binding.swipeRefresh.setOnRefreshListener(() -> {
-            viewModel.fetchSimulationList(); // gọi lại API
+            viewModel.fetchSimulationList();
         });
 
         return binding.getRoot();
     }
+    private void setupSearch() {
+        binding.searchView.setOnQueryTextListener(
+                new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        filterList(query);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filterList(newText);
+                        return true;
+                    }
+                }
+        );
+    }
+    private void filterList(String keyword) {
+        if (adapter == null) return;
+
+        // Nếu chưa load data
+        if (fullList.isEmpty()) {
+            adapter.setData(fullList);
+            return;
+        }
+
+        // Clear search
+        if (keyword == null || keyword.trim().isEmpty()) {
+            adapter.setData(fullList);
+            return;
+        }
+
+        List<SimulationResponse> filteredList = new ArrayList<>();
+        String key = keyword.toLowerCase();
+
+        for (SimulationResponse item : fullList) {
+            if (item.getTitle() != null &&
+                    item.getTitle().toLowerCase().contains(key)) {
+                filteredList.add(item);
+            }
+        }
+
+        adapter.setData(filteredList);
+    }
+
     private void loadJobs() {
         viewModel.fetchSimulationList();
         viewModel.getPostList().observe(getViewLifecycleOwner(), postList -> {
-            if (postList == null || postList.isEmpty()) return;
+            if (postList == null) return;
 
-            SimulationAdapter adapter = new SimulationAdapter(viewModel, item -> {
-                Intent intent = new Intent(getContext(), SimulationOverviewActivity.class);
-                intent.putExtra("item_id", item);
-                startActivity(intent);
-            });
-            adapter.setData(postList);
-            binding.recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
-            binding.recycleview.setAdapter(adapter);
+            fullList.clear();
+            for (SimulationResponse item : postList) {
+                if (item != null) {
+                    fullList.add(item);
+                }
+            }
+
+            adapter.setData(fullList);
             binding.swipeRefresh.setRefreshing(false);
         });
+
 
     }
 

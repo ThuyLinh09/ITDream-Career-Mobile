@@ -3,7 +3,6 @@ package graduate.itdreams.android.ui.main.achievement;
 import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -13,14 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import graduate.itdreams.android.data.model.api.response.simulation.AchievementResponse;
-import graduate.itdreams.android.data.model.api.response.simulation.SimulationResponse;
 import graduate.itdreams.android.databinding.ItemAchievementBinding;
-import graduate.itdreams.android.databinding.ItemSimulationBinding;
-import graduate.itdreams.android.ui.main.home.HomeViewModel;
 
 public class AchievementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<AchievementResponse> simulationList = new ArrayList<>();
+    private final List<AchievementResponse> achievementList = new ArrayList<>();
     private final OnPostClickListener listener;
     private final AchievementViewModel viewModel;
 
@@ -44,16 +40,16 @@ public class AchievementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private int findPositionById(Long itemId) {
-        for (int i = 0; i < simulationList.size(); i++) {
-            if (simulationList.get(i).getId().equals(itemId)) return i;
+        for (int i = 0; i < achievementList.size(); i++) {
+            if (achievementList.get(i).getId().equals(itemId)) return i;
         }
         return -1;
     }
 
     public void setData(List<AchievementResponse> newData) {
-        simulationList.clear();
+        achievementList.clear();
         if (newData != null) {
-            simulationList.addAll(newData);
+            achievementList.addAll(newData);
         }
         notifyDataSetChanged();
     }
@@ -70,13 +66,13 @@ public class AchievementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Log.d("SimulationAdapter", "Binding item at position: " + position);
         if (holder instanceof AchievementViewHolder) {
-            ((AchievementViewHolder) holder).bind(simulationList.get(position), viewModel, listener);
+            ((AchievementViewHolder) holder).bind(achievementList.get(position), viewModel, listener);
         }
     }
 
     @Override
     public int getItemCount() {
-        return simulationList.size();
+        return achievementList.size();
     }
 
     static class AchievementViewHolder extends RecyclerView.ViewHolder {
@@ -88,16 +84,18 @@ public class AchievementAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
 
         public void bind(AchievementResponse item, AchievementViewModel viewModel, OnPostClickListener listener) {
-            binding.tvJobPosition.setText(item.getSimulation().getTitle());
-            binding.tvCompanyName.setText(item.getSimulation().getEducator().getProfileAccountDto().getFullName());
-            binding.ratingBar.setRating(item.getSimulation().getAvgRating());
-            binding.tvEstimatedTime.setText(item.getSimulation().getTotalEstimatedTime());
+            if(item.getSimulation() != null){
+                binding.tvJobPosition.setText(item.getSimulation().getTitle());
+                binding.tvCompanyName.setText(item.getSimulation().getEducator().getProfileAccountDto().getFullName());
+                binding.ratingBar.setRating(item.getSimulation().getAvgRating());
+                binding.tvEstimatedTime.setText(item.getSimulation().getTotalEstimatedTime());
 
-            Bitmap bitmap = viewModel.getBitmapFromCache(item.getId());
-            if (bitmap != null) {
-                binding.ivLogo.setImageBitmap(bitmap);
-            } else {
-                viewModel.loadImageForItem(item.getId(), item.getSimulation().getImagePath());
+                Bitmap bitmap = viewModel.getBitmapFromCache(item.getId());
+                if (bitmap != null) {
+                    binding.ivLogo.setImageBitmap(bitmap);
+                } else {
+                    viewModel.loadImageForItem(item.getId(), item.getSimulation().getImagePath());
+                }
             }
 
             binding.viewCertificate.setOnClickListener(v -> {

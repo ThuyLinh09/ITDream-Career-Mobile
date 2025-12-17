@@ -88,6 +88,7 @@
         <activity
             android:name=".ui.main.taskdetail.TaskDetailActivity"
             android:launchMode="singleTop"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.main.taskdetail.PdfActivity"

@@ -17,4 +17,5 @@ public class SubTaskResponse {
     private int kind;
     private String filePath;
     private TaskResponse parent;
+    private String videoPath;
 }

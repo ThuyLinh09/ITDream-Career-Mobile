@@ -12,6 +12,7 @@ import graduate.itdreams.android.data.model.api.request.student.VerifyOtpRequest
 import graduate.itdreams.android.data.model.api.request.task.CompleteTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.RestartTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.TaskQuestionProgressRequest;
+import graduate.itdreams.android.data.model.api.response.feedback.FeedbackResponse;
 import graduate.itdreams.android.data.model.api.response.notification.NotificationResponse;
 import graduate.itdreams.android.data.model.api.response.question.TaskQuestionProgressResponse;
 import graduate.itdreams.android.data.model.api.response.question.TaskQuestionResponse;
@@ -97,7 +98,10 @@ public interface ApiService {
     Observable<ResponseWrapper<ResponseListObj<RateResponse>>> getRateList(@Query("simulationId") long simulationId);
 //  TASK
     @GET("/v1/task/student-list")
-    Observable<ResponseWrapper<ResponseListObj<TaskResponse>>> getTaskList(@Query("simulationId") long simulationId);
+    Observable<ResponseWrapper<ResponseListObj<TaskResponse>>> getTaskList(
+            @Query("simulationId") long simulationId,
+            @Query("size") int size
+    );
 
 //  SUBTASK
     @GET("/v1/task/student-get/{id}")
@@ -140,4 +144,8 @@ public interface ApiService {
 //  NOTIFICATION
     @GET("/v1/notification/student-list")
     Observable<ResponseWrapper<List<NotificationResponse>>> getNotificationList();
+
+//  FEEDBACK
+    @GET("/v1/review-submission/student-get/{id}")
+    Observable<ResponseWrapper<FeedbackResponse>> getFeedback(@Path("id") Long id);
 }

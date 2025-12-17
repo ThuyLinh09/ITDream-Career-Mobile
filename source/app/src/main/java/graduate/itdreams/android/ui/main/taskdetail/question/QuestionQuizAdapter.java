@@ -101,9 +101,10 @@ public class QuestionQuizAdapter extends RecyclerView.Adapter<QuestionQuizAdapte
                         child.setBackgroundResource(R.drawable.bg_white_stroke_gray);
                     }
                     child.setEnabled(false); // disable sau khi chọn
-                    if (answerListener != null) {
-                        answerListener.onAnswerSelected(option.isAnswer());
-                    }
+
+                }
+                if (answerListener != null) {
+                    answerListener.onAnswerSelected(option.isAnswer());
                 }
             });
         }

@@ -51,4 +51,8 @@
     <string name="invalid_image">File ảnh không hợp lệ</string>
 
     <string name="socket_error">Lỗi socket</string>
+
+<!--    feedback-->
+    <string name="feedback_fail">Chưa có phản hồi</string>
+
 </resources>

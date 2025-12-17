@@ -53,6 +53,8 @@ public class TaskDetailActivity extends BaseActivity<ActivityTaskDetailBinding,T
         initDrawer();
         initRecyclerView();
         initViewModel();
+        viewBinding.btnBack.setOnClickListener(v -> finish());
+
     }
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(TaskDetailViewModel.class);
