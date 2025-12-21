@@ -93,7 +93,8 @@
         <activity
             android:name=".ui.main.taskdetail.PdfActivity"
             android:windowSoftInputMode="adjustResize" />
-
+        <activity android:name=".ui.main.login.ForgetPasswordFlowActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <service
             android:name=".ui.service.MyFirebaseMessagingService"
             android:exported="false">

@@ -46,6 +46,7 @@ public class SignUpFragment extends BaseFragment<FragmentSignupBinding, SignUpVi
         setUpValidation();
         setUpBirthDate();
         setNoSpaceFilters();
+        binding.login.setOnClickListener(v->requireActivity().finish());
     }
     private void setNoSpaceFilters() {
         InputFilter noSpaceFilter = (source, start, end, dest, dstart, dend) -> {

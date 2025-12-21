@@ -26,12 +26,18 @@
             android:paddingBottom="@dimen/_10sdp"
             style="@style/Text_20_Bold_Black"
             android:layout_gravity="center"/>
-        <!-- Rating stars -->
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_100sdp"
+            app:lottie_rawRes="@raw/animation_review"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:layout_gravity="center"
             android:numStars="5"
             android:stepSize="1"

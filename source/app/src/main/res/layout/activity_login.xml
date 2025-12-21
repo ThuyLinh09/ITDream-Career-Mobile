@@ -41,14 +41,20 @@
                 android:layout_height="wrap_content"
                 android:text="Chào mừng bạn đến với ITDreams"
                 style="@style/Text_14_Bold_Black"
-                android:layout_margin="@dimen/_12sdp"/>
+                android:layout_marginTop="@dimen/_12sdp"/>
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_100sdp"
+                app:lottie_rawRes="@raw/robot"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
                 style="@style/Text_16_Bold_Black"
-                android:layout_margin="@dimen/_12sdp"/>
+                android:layout_marginBottom="@dimen/_12sdp"/>
 
 
             <EditText
@@ -123,6 +129,7 @@
                 android:textSize="@dimen/_12ssp"
                 android:layout_margin="@dimen/_20sdp"
                 android:layout_gravity="end"
+                android:onClick="@{v -> a.onForgetPasswordClick()}"
                 android:text="Quên mật khẩu ?"
                 android:textColor="@color/text_app"/>
 
@@ -137,41 +144,66 @@
                 android:layout_marginHorizontal="@dimen/_20sdp"
                 android:onClick="@{v -> a.onLoginClick()}"/>
 
-                <ImageView
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/line_app"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_gravity="center"/>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:src="@drawable/google"
-                    android:gravity="center"
-                    android:padding="@dimen/_6sdp"
-                    android:layout_marginHorizontal="@dimen/_20sdp"
-                    android:onClick="@{v -> a.onGoogleLoginClick()}"/>
+                    android:text="Hoặc đăng nhập bằng"
+                    style="@style/Text_12_Normal_Black"/>
+                <View
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/line_app"
+                    android:layout_marginHorizontal="@dimen/_5sdp"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:src="@drawable/google"
+                android:gravity="center"
+                android:padding="@dimen/_6sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:onClick="@{v -> a.onGoogleLoginClick()}"/>
 
             <View
                 android:layout_width="@dimen/_150sdp"
                 android:layout_height="@dimen/_2sdp"
                 android:background="@color/line_app"/>
-                <LinearLayout
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/_12sdp">
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="@dimen/_12sdp">
+                    android:text="Bạn chưa có tài khoản ?"
+                    style="@style/Text_12_Normal_Black"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bạn chưa có tài khoản ?"
-                        style="@style/Text_12_Normal_Black"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/_12ssp"
-                        android:text="Đăng kí ngay"
-                        android:textColor="@color/text_app"
-                        android:layout_marginStart="@dimen/_12sdp"
-                        android:onClick="@{v -> a.onSignUpClick()}"/>
-                </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="Đăng kí ngay"
+                    android:textColor="@color/text_app"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:onClick="@{v -> a.onSignUpClick()}"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

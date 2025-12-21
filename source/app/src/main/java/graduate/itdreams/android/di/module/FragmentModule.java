@@ -19,6 +19,8 @@ import graduate.itdreams.android.ui.main.account.AccountUnLoginViewModel;
 import graduate.itdreams.android.ui.main.account.AccountViewModel;
 import graduate.itdreams.android.ui.main.achievement.AchievementViewModel;
 import graduate.itdreams.android.ui.main.home.HomeViewModel;
+import graduate.itdreams.android.ui.main.login.OTPForgetPasswordViewModel;
+import graduate.itdreams.android.ui.main.login.RequestForgetPasswordViewModel;
 import graduate.itdreams.android.ui.main.register.QuizJobViewModel;
 import graduate.itdreams.android.ui.main.register.SignUpViewModel;
 import graduate.itdreams.android.ui.main.notification.NotificationViewModel;
@@ -143,5 +145,19 @@ public class FragmentModule {
         Supplier<AchievementViewModel> supplier = () -> new AchievementViewModel(repository, (MVVMApplication)application);
         ViewModelProviderFactory<AchievementViewModel> factory = new ViewModelProviderFactory<>(AchievementViewModel.class, supplier);
         return new ViewModelProvider(fragment, factory).get(AchievementViewModel.class);
+    }
+    @Provides
+    @FragmentScope
+    RequestForgetPasswordViewModel provideRequestForgetPasswordViewModel(Repository repository, Context application) {
+        Supplier<RequestForgetPasswordViewModel> supplier = () -> new RequestForgetPasswordViewModel(repository, (MVVMApplication)application);
+        ViewModelProviderFactory<RequestForgetPasswordViewModel> factory = new ViewModelProviderFactory<>(RequestForgetPasswordViewModel.class, supplier);
+        return new ViewModelProvider(fragment, factory).get(RequestForgetPasswordViewModel.class);
+    }
+    @Provides
+    @FragmentScope
+    OTPForgetPasswordViewModel provideOTPForgetPasswordViewModel(Repository repository, Context application) {
+        Supplier<OTPForgetPasswordViewModel> supplier = () -> new OTPForgetPasswordViewModel(repository, (MVVMApplication)application);
+        ViewModelProviderFactory<OTPForgetPasswordViewModel> factory = new ViewModelProviderFactory<>(OTPForgetPasswordViewModel.class, supplier);
+        return new ViewModelProvider(fragment, factory).get(OTPForgetPasswordViewModel.class);
     }
 }

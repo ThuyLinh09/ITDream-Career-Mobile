@@ -12,6 +12,7 @@ import graduate.itdreams.android.di.scope.ActivityScope;
 import graduate.itdreams.android.ui.base.activity.BaseActivity;
 import graduate.itdreams.android.ui.main.MainViewModel;
 import graduate.itdreams.android.ui.main.account.EditProfileViewModel;
+import graduate.itdreams.android.ui.main.login.ForgetPasswordFlowViewModel;
 import graduate.itdreams.android.ui.main.login.LoginViewModel;
 import graduate.itdreams.android.ui.main.register.RegisterFlowViewModel;
 import graduate.itdreams.android.ui.main.simulation.SimulationOverviewViewModel;
@@ -100,5 +101,13 @@ public class ActivityModule {
         Supplier<PdfViewModel> supplier = () -> new PdfViewModel(repository, (MVVMApplication)application);
         ViewModelProviderFactory<PdfViewModel> factory = new ViewModelProviderFactory<>(PdfViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(PdfViewModel.class);
+    }
+
+    @Provides
+    @ActivityScope
+    ForgetPasswordFlowViewModel provideForgetPasswordFlowViewModel(Repository repository, Context application) {
+        Supplier<ForgetPasswordFlowViewModel> supplier = () -> new ForgetPasswordFlowViewModel(repository, (MVVMApplication)application);
+        ViewModelProviderFactory<ForgetPasswordFlowViewModel> factory = new ViewModelProviderFactory<>(ForgetPasswordFlowViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(ForgetPasswordFlowViewModel.class);
     }
 }

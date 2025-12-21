@@ -89,7 +89,6 @@ public class TaskDrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (viewType == TYPE_SUB)
             return new SubTaskViewHolder(inflater.inflate(R.layout.item_task_parent, parent, false));
 
-        // 👉 Rating item
         return new RatingViewHolder(inflater.inflate(R.layout.item_rating, parent, false));
     }
 
@@ -184,7 +183,6 @@ public class TaskDrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
                 notifyItemChanged(selectedPosition);
 
-                // Tìm cha
                 int pos = getAdapterPosition();
                 for (int i = pos - 1; i >= 0; i--) {
                     Object item = displayList.get(i);
@@ -198,13 +196,11 @@ public class TaskDrawerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     }
     public void selectDefaultSubTask(TaskResponse task, SubTaskResponse subTask) {
-        // Mở task nếu chưa mở
         if (!expandedTaskIds.contains(task.getId())) {
             expandedTaskIds.add(task.getId());
             rebuildDisplayList();
         }
 
-        // Tìm position của subTask trong displayList
         for (int i = 0; i < displayList.size(); i++) {
             Object item = displayList.get(i);
             if (item instanceof SubTaskResponse) {
