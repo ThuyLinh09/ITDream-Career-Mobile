@@ -1,4 +1,4 @@
-package graduate.itdreams.android.ui.main.home;
+package graduate.itdreams.android.ui.main.feedback;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -19,10 +19,12 @@ public class FeedbackViewDialogFragment extends DialogFragment {
 
     private static final String ARG_CONTENT = "arg_content";
 
-    public static FeedbackViewDialogFragment newInstance(String content) {
+    public static FeedbackViewDialogFragment newInstance(String content, String author, String date) {
         FeedbackViewDialogFragment dialog = new FeedbackViewDialogFragment();
         Bundle args = new Bundle();
         args.putString("content", content);
+        args.putString("author", author);
+        args.putString("date", date);
         dialog.setArguments(args);
         return dialog;
     }
@@ -40,12 +42,23 @@ public class FeedbackViewDialogFragment extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         TextView tvContent = view.findViewById(R.id.tvFeedbackContent);
-        Button btnClose = view.findViewById(R.id.btnClose);
+        TextView tvAuthor = view.findViewById(R.id.tv_author);
+        TextView tvDate = view.findViewById(R.id.tv_date_response);
+
+//        Button btnClose = view.findViewById(R.id.btnClose);
         String content = getArguments().getString("content");
+        String author = getArguments().getString("author");
+        String date = getArguments().getString("date");
         if(content != null){
             tvContent.setText(content);
         }
-        btnClose.setOnClickListener(v -> dismiss());
+        if(author != null){
+            tvAuthor.setText(author);
+        }if(date != null){
+            tvDate.setText(date);
+        }
+
+//        btnClose.setOnClickListener(v -> dismiss());
     }
 
 

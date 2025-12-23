@@ -71,19 +71,29 @@
                 android:background="@android:color/white"
                 app:itemIconTint="@null">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_task_list"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/_150sdp"
-                    android:padding="8dp"
-                    android:clipToPadding="false"/>
-                <Button
-                    android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Thoát"
-                    android:background="@color/bg_btn"/>
+                    android:orientation="vertical">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_task_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="@dimen/_150sdp"
+                        android:padding="8dp"
+                        android:clipToPadding="false"/>
+                    <Button
+                        android:id="@+id/btnBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:layout_gravity="center|bottom"
+                        style="@style/Text_12_Bold_White"
+                        android:text="THOÁT"
+                        android:background="@color/red"/>
+                </LinearLayout>
+
             </com.google.android.material.navigation.NavigationView>
 
 

@@ -34,8 +34,14 @@ public class NotificationFragment extends BaseFragment<FragmentNotificationBindi
     private void loadNotifications() {
         viewModel.fetchNotificationList();
         viewModel.getNotificationList().observe(getViewLifecycleOwner(), notificationList -> {
-            if (notificationList == null || notificationList.isEmpty()) return;
-
+            if (notificationList == null || notificationList.isEmpty()) {
+                binding.recycleview.setVisibility(View.GONE);
+                binding.nodata.setVisibility(View.VISIBLE);
+                binding.swipeRefresh.setRefreshing(false);
+                return;
+            }
+            binding.recycleview.setVisibility(View.VISIBLE);
+            binding.nodata.setVisibility(View.GONE);
             NotificationAdapter adapter = new NotificationAdapter(viewModel, item -> {
                 Intent intent = new Intent(getContext(), SimulationOverviewActivity.class);
                 intent.putExtra("item_id", item);

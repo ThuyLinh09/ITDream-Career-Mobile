@@ -57,6 +57,8 @@ public class ReviewSimulationViewModel extends BaseFragmentViewModel {
                 .subscribe(
                         response -> {
                             hideLoading();
+                            showNormalMessage("Gửi đánh giá thành công");
+
                             //taskQuestionLiveData.setValue(response.getData().getContent());
                         }, throwable -> {
                             hideLoading();
@@ -71,7 +73,9 @@ public class ReviewSimulationViewModel extends BaseFragmentViewModel {
                                     ResponseWrapper apiError = new Gson().fromJson(errorBody, ResponseWrapper.class);
 
                                     if ("REVIEW-ERROR-0001".equals(apiError.getCode())) {
-                                        showNormalMessage("Bạn đã đánh giá nhiệm vụ này rồi");
+                                        showNormalMessage("Bạn đã đánh giá bài này rồi");
+                                    }else if ("REVIEW-ERROR-0003".equals(apiError.getCode())) {
+                                        showNormalMessage("Bạn chưa hoàn thành khóa học");
                                     }
 
                                 } catch (Exception e) {

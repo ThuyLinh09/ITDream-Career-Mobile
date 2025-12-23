@@ -35,4 +35,6 @@
     <color name="star">#FFC107</color>
     <color name="star_tin">#4DFFC107</color>
     <color name="white_transparent_70">#B3FFFFFF</color>
+    <color name="red">#F24951</color>
+
 </resources>

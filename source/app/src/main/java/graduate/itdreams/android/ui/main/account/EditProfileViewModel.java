@@ -39,9 +39,11 @@ import timber.log.Timber;
 
 public class EditProfileViewModel extends BaseViewModel {
     public final MutableLiveData<String> fullname = new MutableLiveData<>("");
-    public final MutableLiveData<String> email = new MutableLiveData<>("");
+    public final MutableLiveData<String> phone = new MutableLiveData<>("");
     public final MutableLiveData<String> birthday = new MutableLiveData<>("");
     public final MutableLiveData<String> username = new MutableLiveData<>("");
+    public final MutableLiveData<String> avatarPath = new MutableLiveData<>("");
+
     public MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
 
     MutableLiveData<Bitmap> avatarLiveData = new MutableLiveData<>();
@@ -49,7 +51,17 @@ public class EditProfileViewModel extends BaseViewModel {
         super(repository, application);
     }
 
-    public void updateProfile(StudentUpdateProfileRequest request) {
+    public void updateProfile() {
+        StudentUpdateProfileRequest request = new StudentUpdateProfileRequest();
+        request.setPhone(phone.getValue());
+        request.setUsername(username.getValue());
+        request.setAvatarPath(avatarPath.getValue());
+        request.setFullName(fullname.getValue());
+        if (birthday.getValue() != null) {
+            SimpleDateFormat apiFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+            String formattedBirthDate = apiFormat.format(birthday.getValue());
+            request.setBirthday(formattedBirthDate);
+        }
         showLoading();
         compositeDisposable.add(repository.getApiService().update(request)
                 .subscribeOn(Schedulers.io())
@@ -137,8 +149,9 @@ public class EditProfileViewModel extends BaseViewModel {
                         response -> {
                             hideLoading();
                             fullname.setValue(response.getData().getProfileAccountDto().getFullName());
-                            email.setValue(response.getData().getProfileAccountDto().getEmail());
+                            phone.setValue(response.getData().getProfileAccountDto().getPhone());
                             username.setValue(response.getData().getProfileAccountDto().getUsername());
+                            avatarPath.setValue(response.getData().getProfileAccountDto().getAvatar());
                             loadAvatar(response.getData().getProfileAccountDto().getAvatar());
 
                             String birthdayStr = response.getData().getBirthday();
@@ -166,15 +179,15 @@ public class EditProfileViewModel extends BaseViewModel {
                             }
                         }));
     }
-    public void onConfirmClicked(File imageFile, StudentUpdateProfileRequest request) {
+    public void onConfirmClicked(File imageFile) {
 
         if (imageFile != null) {
-            uploadImage(imageFile, true, request);
+            uploadImage(imageFile, true);
         } else {
-            updateProfile(request);
+            updateProfile();
         }
     }
-    public void uploadImage(File imageFile, boolean isForContact, StudentUpdateProfileRequest infoStudent) {
+    public void uploadImage(File imageFile, boolean isForContact) {
         if (imageFile == null || !imageFile.exists()) {
             showNormalMessage(getApplication().getString(R.string.invalid_image));
             return;
@@ -192,9 +205,9 @@ public class EditProfileViewModel extends BaseViewModel {
                     hideLoading();
                     if (response.isResult() && response.getData() != null) {
                         UploadResponse uploadedUrl = response.getData();
-                        infoStudent.setAvatarPath(uploadedUrl.getFilePath());
+                        avatarPath.setValue(uploadedUrl.getFilePath());
                         if (isForContact) {
-                            updateProfile(infoStudent);
+                            updateProfile();
                         }
                     }
                 }, throwable -> {
