@@ -3,7 +3,8 @@ import lombok.Data;
 @Data
 public class ProfileAccountResponse {
     private String avatar;
-    private String email;
+    private String phone;
     private String fullName;
     private String username;
+    private String email;
 }

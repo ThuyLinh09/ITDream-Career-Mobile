@@ -4,7 +4,9 @@ import java.util.List;
 
 import graduate.itdreams.android.data.model.api.ResponseListObj;
 import graduate.itdreams.android.data.model.api.request.achievement.UpdateCertificateRequest;
+import graduate.itdreams.android.data.model.api.request.login.ChangePasswordRequest;
 import graduate.itdreams.android.data.model.api.request.login.GoogleLoginRequest;
+import graduate.itdreams.android.data.model.api.request.login.RequestForgetPasswordRequest;
 import graduate.itdreams.android.data.model.api.request.review.ReviewSimulationRequest;
 import graduate.itdreams.android.data.model.api.request.student.ResetOtpRequest;
 import graduate.itdreams.android.data.model.api.request.student.StudentUpdateProfileRequest;
@@ -12,6 +14,7 @@ import graduate.itdreams.android.data.model.api.request.student.VerifyOtpRequest
 import graduate.itdreams.android.data.model.api.request.task.CompleteTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.RestartTaskRequest;
 import graduate.itdreams.android.data.model.api.request.task.TaskQuestionProgressRequest;
+import graduate.itdreams.android.data.model.api.response.account.ForgetPasswordResponse;
 import graduate.itdreams.android.data.model.api.response.feedback.FeedbackResponse;
 import graduate.itdreams.android.data.model.api.response.notification.NotificationResponse;
 import graduate.itdreams.android.data.model.api.response.question.TaskQuestionProgressResponse;
@@ -67,6 +70,12 @@ public interface ApiService {
 
     @PUT("/v1/student/client_update")
     Observable<ResponseWrapper> update(@Body StudentUpdateProfileRequest request);
+    @POST("/v1/account/request_forget_password")
+    @Headers({"UseBasicAuth: 1"})
+    Observable<ResponseWrapper<ForgetPasswordResponse>> requestForgetPassword(@Body RequestForgetPasswordRequest request);
+    @POST("/v1/account/forget_password")
+    @Headers({"UseBasicAuth: 1"})
+    Observable<ResponseWrapper> changePassword(@Body ChangePasswordRequest request);
 
 //  IMAGE
     @GET("v1/file/download{file}")

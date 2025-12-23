@@ -40,10 +40,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycleview"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                    <LinearLayout
+                        android:id="@+id/nodata"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="@dimen/_150sdp"
+                            android:layout_height="@dimen/_150sdp"
+                            app:lottie_rawRes="@raw/no_data"
+                            android:scaleX="1.5"
+                            android:scaleY="1.5"
+                            android:layout_gravity="center"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bạn chưa có thành tựu"
+                            style="@style/Text_12_Normal_Black"/>
+                    </LinearLayout>
+                </FrameLayout>
+
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -8,4 +8,5 @@ public class StudentUpdateProfileRequest {
     private String fullName;
     private String birthday;
     private String username;
+    private String phone;
 }

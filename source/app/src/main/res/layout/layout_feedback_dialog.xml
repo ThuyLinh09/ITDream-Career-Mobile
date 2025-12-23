@@ -5,34 +5,51 @@
     android:orientation="vertical"
     android:padding="@dimen/_10sdp"
     android:layout_margin="@dimen/_10sdp"
-    android:background="@drawable/bg_quiz">
+    android:background="@android:color/transparent">
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phản hồi từ giảng viên"
-        android:layout_gravity="top|center"
-        style="@style/Text_16_Bold_Black"
-        android:layout_marginBottom="12dp"/>
-
-    <TextView
-        android:id="@+id/tvFeedbackContent"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bạn chưa có phản hồi"
-        android:background="@android:drawable/edit_text"
-        android:minHeight="120dp"
-        style="@style/Text_12_Normal_Black"
-        android:lineSpacingExtra="4dp"
-        android:textColor="#444444" />
+        android:background="@drawable/bg_green_stroke_green"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phản hồi từ tác giả"
+            android:layout_gravity="top|center"
+            style="@style/Text_16_Bold_Black"
+            android:layout_marginVertical="@dimen/_5sdp"/>
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text_14_Bold_Black"
+            android:textColor="@color/text_green"
+            android:layout_gravity="center_horizontal"
+            android:text=""
+            android:layout_marginTop="@dimen/_5sdp"
+            />
+        <TextView
+            android:id="@+id/tv_date_response"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Text_10_Normal_Black"
+            android:textColor="@color/gray"
+            android:layout_gravity="center_horizontal"
+            android:text=""
+            android:layout_marginBottom="@dimen/_8sdp"/>
+        <TextView
+            android:id="@+id/tvFeedbackContent"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:text="Bạn chưa có phản hồi"
+            android:layout_margin="@dimen/_5sdp"
+            style="@style/Text_12_Normal_Black"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_horizontal"
+            android:lineSpacingExtra="4dp"/>
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/btnClose"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="Đóng"
-        android:layout_marginTop="@dimen/_5sdp" />
 
 </LinearLayout>

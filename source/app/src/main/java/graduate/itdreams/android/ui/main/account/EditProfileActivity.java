@@ -6,6 +6,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -21,11 +25,13 @@ import java.util.Locale;
 
 import eu.davidea.flexibleadapter.databinding.BR;
 import graduate.itdreams.android.R;
+import graduate.itdreams.android.data.model.api.request.student.StudentSignUpRequest;
 import graduate.itdreams.android.data.model.api.request.student.StudentUpdateProfileRequest;
 import graduate.itdreams.android.data.socket.dto.Message;
 import graduate.itdreams.android.databinding.ActivityEditProfileBinding;
 import graduate.itdreams.android.di.component.ActivityComponent;
 import graduate.itdreams.android.ui.base.activity.BaseActivity;
+import graduate.itdreams.android.ui.main.login.SimpleTextWatcher;
 
 public class EditProfileActivity extends BaseActivity<ActivityEditProfileBinding, EditProfileViewModel> {
     private Calendar selectedBirthDate = null;
@@ -37,6 +43,8 @@ public class EditProfileActivity extends BaseActivity<ActivityEditProfileBinding
         viewBinding.setA(this);
         viewBinding.setVm(viewModel);
         viewBinding.setLifecycleOwner(this);
+        validatePhone();
+
         viewModel.loadProfile();
         viewBinding.toolbar.setNavigationOnClickListener(v -> finish());
         setUpBirthDate();
@@ -57,6 +65,28 @@ public class EditProfileActivity extends BaseActivity<ActivityEditProfileBinding
         viewModel.isSuccess.observe(this, success -> {
             finish();
         });
+    }
+    public Boolean isValidForm() {
+        String name = viewBinding.name.getText().toString().trim();
+        String username = viewBinding.username.getText().toString().trim();
+        String phone = viewBinding.phone.getText().toString().trim();
+
+        boolean noError = true;
+
+        if (name.isEmpty()) {
+            setError(viewBinding.name, viewBinding.mgsErName, getString(R.string.err_name));
+            noError = false;
+        }
+
+        if (phone.isEmpty()) {
+            setError(viewBinding.phone, viewBinding.mgsErPhone, getString(R.string.err_phone));
+            noError = false;
+        } else if (!phone.matches("^0[0-9]{9}$")) {
+            setError(viewBinding.phone, viewBinding.mgsErPhone, getString(R.string.err_phone_2));
+            noError = false;
+        }
+
+        return noError;
     }
     private void openImagePicker() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -81,17 +111,23 @@ public class EditProfileActivity extends BaseActivity<ActivityEditProfileBinding
         }
     }
     public void onUpdateProfile() {
-        String fullname = viewBinding.name.getText().toString().trim();
-        String username = viewBinding.username.getText().toString().trim();
+
+        hideKeyboard();
+        if (!isValidForm()) return;
+
+        String fullname = viewModel.fullname.toString().trim();
+        String username = viewModel.username.toString().trim();
+        String phone = viewModel.phone.toString().trim();
         StudentUpdateProfileRequest request = new StudentUpdateProfileRequest();
         request.setFullName(fullname);
         request.setUsername(username);
+        request.setPhone(phone);
         if (selectedBirthDate != null) {
             SimpleDateFormat apiFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
             String formattedBirthDate = apiFormat.format(selectedBirthDate.getTime());
             request.setBirthday(formattedBirthDate);
         }
-        viewModel.onConfirmClicked(selectedImageFile, request);
+        viewModel.onConfirmClicked(selectedImageFile);
     }
 
     private void setUpBirthDate() {
@@ -115,6 +151,38 @@ public class EditProfileActivity extends BaseActivity<ActivityEditProfileBinding
 
             datePickerDialog.show();
         });
+    }
+    private void validatePhone() {
+        viewBinding.phone.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!hasFocus) {
+                String phone = viewBinding.phone.getText().toString().trim();
+                if (phone.isEmpty()) {
+                    setError(viewBinding.phone, viewBinding.mgsErPhone, getString(R.string.err_phone));
+                } else if (!phone.matches("^0[0-9]{9}$")) {
+                    setError(viewBinding.phone, viewBinding.mgsErPhone, getString(R.string.err_phone_2));
+                }
+            }
+        });
+
+        viewBinding.phone.addTextChangedListener(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String phone = s.toString().trim();
+                if (!phone.isEmpty()) {
+                    clearError(viewBinding.phone, viewBinding.mgsErPhone);
+                }
+
+            }
+        });
+    }
+    private void clearError(EditText editText, TextView errorText) {
+        editText.setBackgroundResource(R.drawable.bg_text_box_un_select);
+        errorText.setVisibility(View.GONE);
+    }
+    private void setError(EditText editText, TextView errorText, String message) {
+        editText.setBackgroundResource(R.drawable.bg_text_box_select);
+        errorText.setText(message);
+        errorText.setVisibility(View.VISIBLE);
     }
     @Override
     public int getLayoutId () {

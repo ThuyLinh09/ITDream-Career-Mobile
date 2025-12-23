@@ -212,6 +212,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             style="@style/Text_12_Bold_Black"
                             android:text="Quản lý tìm việc"
                             android:layout_marginHorizontal="@dimen/_12sdp"
@@ -220,6 +221,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="@dimen/_12sdp"
@@ -312,6 +314,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="@dimen/_12sdp"
@@ -404,6 +407,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="@dimen/_12sdp"
@@ -496,6 +500,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             android:orientation="horizontal"
                             android:weightSum="2"
                             android:layout_marginBottom="@dimen/_12sdp"
@@ -544,243 +549,13 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/bg_app"
-                        android:layout_marginVertical="@dimen/_12sdp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/Text_12_Bold_Black"
-                            android:layout_margin="@dimen/_12sdp"
-                            android:text="Chính sách và hỗ trợ"/>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_12sdp"
-                                android:layout_centerVertical="true">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="@dimen/_30sdp"
-                                    style="@style/Text_12_Normal_Black"
-                                    android:text="Về TopCv"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_centerVertical="true"/>
-
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"
-                                    android:layout_alignParentEnd="true"/>
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_second"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginHorizontal="@dimen/_12sdp"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_12sdp"
-                                android:layout_centerVertical="true">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="@dimen/_30sdp"
-                                    style="@style/Text_12_Normal_Black"
-                                    android:text="Về TopCv"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_centerVertical="true"/>
-
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"
-                                    android:layout_alignParentEnd="true"/>
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_second"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginHorizontal="@dimen/_12sdp"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_12sdp"
-                                android:layout_centerVertical="true">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="@dimen/_30sdp"
-                                    style="@style/Text_12_Normal_Black"
-                                    android:text="Về TopCv"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_centerVertical="true"/>
-
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"
-                                    android:layout_alignParentEnd="true"/>
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_second"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginHorizontal="@dimen/_12sdp"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_12sdp"
-                                android:layout_centerVertical="true">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="@dimen/_30sdp"
-                                    style="@style/Text_12_Normal_Black"
-                                    android:text="Về TopCv"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_centerVertical="true"/>
-
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"
-                                    android:layout_alignParentEnd="true"/>
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_second"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginHorizontal="@dimen/_12sdp"/>
-                        </RelativeLayout>
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="@dimen/_12sdp"
-                                android:layout_centerVertical="true">
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"/>
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginHorizontal="@dimen/_30sdp"
-                                    style="@style/Text_12_Normal_Black"
-                                    android:text="Về TopCv"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_centerVertical="true"/>
-
-
-                                <ImageView
-                                    android:layout_width="@dimen/_18sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:src="@drawable/bag"
-                                    android:layout_gravity="center"
-                                    android:layout_alignParentEnd="true"/>
-
-                            </RelativeLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:background="@color/bg_second"
-                                android:layout_alignParentBottom="true"
-                                android:layout_marginHorizontal="@dimen/_12sdp"/>
-                        </RelativeLayout>
-
-                    </LinearLayout>
                     <Button
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Đăng xuất"
-                        android:background="@color/bg_app"
+                        android:background="@color/red"
                         android:layout_margin="@dimen/_10sdp"
+                        style="@style/Text_12_Bold_White"
                         android:onClick="@{v -> f.onLogoutClick()}"/>
 
                 </LinearLayout>

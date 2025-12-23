@@ -10,6 +10,8 @@ import graduate.itdreams.android.ui.main.account.AccountUnLoginFragment;
 
 import graduate.itdreams.android.ui.main.achievement.AchievementFragment;
 import graduate.itdreams.android.ui.main.home.HomeFragment;
+import graduate.itdreams.android.ui.main.login.OTPForgetPasswordFragment;
+import graduate.itdreams.android.ui.main.login.RequestForgetPasswordFragment;
 import graduate.itdreams.android.ui.main.register.QuizJobFragment;
 import graduate.itdreams.android.ui.main.register.SignUpFragment;
 import graduate.itdreams.android.ui.main.notification.NotificationFragment;
@@ -36,5 +38,7 @@ public interface FragmentComponent {
     void inject(SubTaskFragment fragment);
     void inject(ReviewSimulationFragment fragment);
     void inject(AchievementFragment fragment);
+    void inject(RequestForgetPasswordFragment fragment);
+    void inject(OTPForgetPasswordFragment fragment);
 
 }

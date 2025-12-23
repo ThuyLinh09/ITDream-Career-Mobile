@@ -38,7 +38,7 @@
     <string name="login_success">Đăng nhập thành công</string>
     <string name="login_un_success">Số điện thoại hoặc mật khẩu không đúng</string>
     <string name="edit">Sửa</string>
-    <string name="no_update">Chưa cập nhật</string>
+    <string name="no_update">Chức năng chưa cập nhật</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

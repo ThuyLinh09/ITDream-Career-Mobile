@@ -7,25 +7,18 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.widget.PopupMenu;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import eu.davidea.flexibleadapter.databinding.BR;
 import graduate.itdreams.android.R;
-import graduate.itdreams.android.data.model.api.response.simulation.SimulationResponse;
 import graduate.itdreams.android.data.socket.dto.Message;
 import graduate.itdreams.android.databinding.ActivitySimulationOverviewBinding;
 import graduate.itdreams.android.di.component.ActivityComponent;
 import graduate.itdreams.android.ui.base.activity.BaseActivity;
-import graduate.itdreams.android.ui.main.home.FeedbackViewDialogFragment;
-import graduate.itdreams.android.ui.main.home.SimulationPagerAdapter;
+import graduate.itdreams.android.ui.main.feedback.FeedbackViewDialogFragment;
 import graduate.itdreams.android.ui.main.taskdetail.TaskDetailActivity;
 
 
@@ -52,27 +45,40 @@ public class SimulationOverviewActivity extends BaseActivity<ActivitySimulationO
                 viewBinding.toolbar.setBackground(drawable);
             }
         });
+        viewModel.getFeedback(itemId);
+        viewModel.getFeedback().observe(this, feedback -> {
+            if (feedback != null) {
+                viewBinding.iconRight.setImageResource(R.drawable.ic_chat_dot);
+                viewBinding.btnMoreCollapsed.setImageResource(R.drawable.ic_chat_dot);
+            }
+        });
         viewBinding.iconRight.setOnClickListener(v -> {
-            PopupMenu popup = new PopupMenu(v.getContext(), v);
-            popup.getMenuInflater().inflate(R.menu.drawer_menu, popup.getMenu());
-
-            popup.setOnMenuItemClickListener(item -> {
-                if (item.getItemId() == R.id.nav_feedback) {
-                    viewModel.getFeedback(itemId);
-                    viewModel.getFeedback().observe(this, feedback -> {
-                        if (feedback != null) {
-                            FeedbackViewDialogFragment
-                                    .newInstance(feedback.getContent())
-                                    .show(getSupportFragmentManager(), "FeedbackDialog");
-                        }
-                    });
-
-                    return true;
+            viewModel.getFeedback(itemId);
+            viewModel.getFeedback().observe(this, feedback -> {
+                if (feedback != null) {
+                    FeedbackViewDialogFragment
+                            .newInstance(feedback.getContent(), feedback.getSimulation().getEducator().getProfileAccountDto().getFullName(), feedback.getModifiedDate())
+                            .show(getSupportFragmentManager(), "FeedbackDialog");
+                }else {
+                    FeedbackViewDialogFragment
+                            .newInstance(null, null, null)
+                            .show(getSupportFragmentManager(), "FeedbackDialog");
                 }
-                return false;
             });
-
-            popup.show();
+        });
+        viewBinding.btnMoreCollapsed.setOnClickListener(v -> {
+            viewModel.getFeedback(itemId);
+            viewModel.getFeedback().observe(this, feedback -> {
+                if (feedback != null) {
+                    FeedbackViewDialogFragment
+                            .newInstance(feedback.getContent(), feedback.getSimulation().getEducator().getProfileAccountDto().getFullName(), feedback.getModifiedDate())
+                            .show(getSupportFragmentManager(), "FeedbackDialog");
+                }else {
+                    FeedbackViewDialogFragment
+                            .newInstance(null, null, null)
+                            .show(getSupportFragmentManager(), "FeedbackDialog");
+                }
+            });
         });
 
     }

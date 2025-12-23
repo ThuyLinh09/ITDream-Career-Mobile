@@ -6,6 +6,7 @@ import graduate.itdreams.android.ui.main.MainActivity;
 
 import dagger.Component;
 import graduate.itdreams.android.ui.main.account.EditProfileActivity;
+import graduate.itdreams.android.ui.main.login.ForgetPasswordFlowActivity;
 import graduate.itdreams.android.ui.main.login.LoginActivity;
 import graduate.itdreams.android.ui.main.register.RegisterFlowActivity;
 import graduate.itdreams.android.ui.main.simulation.SimulationOverviewActivity;
@@ -22,7 +23,7 @@ public interface ActivityComponent {
     void inject(SimulationOverviewActivity activity);
     void inject(TaskDetailActivity activity);
     void inject(PdfActivity activity);
-
+    void inject(ForgetPasswordFlowActivity activity);
 
 }
 

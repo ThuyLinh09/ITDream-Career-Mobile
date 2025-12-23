@@ -27,33 +27,78 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:paddingBottom="24dp">
-
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_150sdp"
+                    app:lottie_rawRes="@raw/verify_otp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xác thực OTP"
-                    style="@style/Text_16_Bold_Black"
+                    style="@style/Text_20_Bold_Black"
                     android:layout_margin="@dimen/_12sdp"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="24dp">
+
+                    <TextView
+                        android:id="@+id/tv1"
+                        style="@style/OtpBox"/>
+
+                    <TextView
+                        android:id="@+id/tv2"
+                        style="@style/OtpBox"/>
+
+                    <TextView
+                        android:id="@+id/tv3"
+                        style="@style/OtpBox"/>
+
+                    <TextView
+                        android:id="@+id/tv4"
+                        style="@style/OtpBox"/>
+
+                    <TextView
+                        android:id="@+id/tv5"
+                        style="@style/OtpBox"/>
+
+                    <TextView
+                        android:id="@+id/tv6"
+                        style="@style/OtpBox"/>
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/otp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
-                    android:layout_marginHorizontal="@dimen/_20sdp"
-                    style="@style/Text_12_Normal_Black"
-                    android:background="@drawable/bg_text_box_un_select"
-                    android:hint="Nhập OTP"
-                    android:paddingHorizontal="@dimen/_12sdp"
-                    android:textColorHint="@color/text_hint"
-                    android:drawableStart="@drawable/lock"
-                    android:drawablePadding="@dimen/_12sdp"
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"
                     android:inputType="number"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:singleLine="true"
-                    />
+                    android:maxLength="6"/>
+
+<!--                <EditText-->
+<!--                    android:id="@+id/otp"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="@dimen/_40sdp"-->
+<!--                    android:layout_marginHorizontal="@dimen/_20sdp"-->
+<!--                    style="@style/Text_12_Normal_Black"-->
+<!--                    android:background="@drawable/bg_text_box_un_select"-->
+<!--                    android:hint="Nhập OTP"-->
+<!--                    android:paddingHorizontal="@dimen/_12sdp"-->
+<!--                    android:textColorHint="@color/text_hint"-->
+<!--                    android:drawableStart="@drawable/lock"-->
+<!--                    android:drawablePadding="@dimen/_12sdp"-->
+<!--                    android:inputType="number"-->
+<!--                    android:layout_marginTop="@dimen/_12sdp"-->
+<!--                    android:singleLine="true"-->
+<!--                    />-->
                 <TextView
                     android:id="@+id/mgs_er_re_password"
                     android:layout_width="wrap_content"
@@ -67,7 +112,7 @@
 
                 <TextView
                     android:id="@+id/btn_confirm"
-                    android:layout_width="match_parent"
+                    android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_40sdp"
                     style="@style/Text_12_Bold_White"
                     android:text="Xác nhận"
@@ -76,7 +121,8 @@
                     android:gravity="center"
                     android:padding="@dimen/_6sdp"
                     android:layout_marginHorizontal="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_24sdp"/>
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"/>
 
 
                 <View

@@ -71,8 +71,14 @@ public class AchievementFragment extends BaseFragment<FragmentAchievementBinding
     private void loadJobs() {
         viewModel.fetchAchievementList();
         viewModel.getPostList().observe(getViewLifecycleOwner(), postList -> {
-            if (postList == null || postList.isEmpty()) return;
-
+            if (postList == null || postList.isEmpty()){
+                binding.recycleview.setVisibility(View.GONE);
+                binding.nodata.setVisibility(View.VISIBLE);
+                binding.swipeRefresh.setRefreshing(false);
+                return;
+            }
+            binding.recycleview.setVisibility(View.VISIBLE);
+            binding.nodata.setVisibility(View.GONE);
             adapter = new AchievementAdapter(viewModel, item -> {
                 if(item.getSimulation() == null){
                     Log.d("Achivement", "Chứng chỉ bạn chưa được lưu");

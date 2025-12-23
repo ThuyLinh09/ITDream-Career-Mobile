@@ -1,7 +1,5 @@
 package graduate.itdreams.android.ui.main.login;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,7 +54,10 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         startActivity(intent);
         finish();
     }
-
+    public void onForgetPasswordClick() {
+        Intent intent = new Intent(this, ForgetPasswordFlowActivity.class);
+        startActivity(intent);
+    }
     public void onSignUpClick() {
         Intent intent = new Intent(this, RegisterFlowActivity.class);
         startActivity(intent);
@@ -64,20 +65,16 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
     @SuppressLint("ClickableViewAccessibility")
     public void setUpPassword() {
         viewBinding.password.setOnTouchListener((v, event) -> {
-            final int DRAWABLE_END = 2; // 0: left, 1: top, 2: right, 3: bottom
+            final int DRAWABLE_END = 2;
             if (event.getAction() == MotionEvent.ACTION_UP) {
                 if (event.getRawX() >= (viewBinding.password.getRight() - viewBinding.password.getCompoundDrawables()[DRAWABLE_END].getBounds().width())) {
-                    // Đảo trạng thái hiển thị mật khẩu
                     if (viewBinding.password.getInputType() == (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD)) {
-                        // Hiển thị mật khẩu
                         viewBinding.password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
                         viewBinding.password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.eye_open, 0);
                     } else {
-                        // Ẩn mật khẩu
                         viewBinding.password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                         viewBinding.password.setCompoundDrawablesWithIntrinsicBounds(R.drawable.lock, 0, R.drawable.eye_closed, 0);
                     }
-                    // Đặt lại con trỏ
                     viewBinding.password.setSelection(viewBinding.password.getText().length());
                     return true;
                 }
@@ -86,7 +83,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
         });
     }
 
-    // 1️⃣ Khai báo launcher để thay startActivityForResult
     private final ActivityResultLauncher<Intent> googleLoginLauncher =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -96,7 +92,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
                     }
             );
 
-    // 2️⃣ Khi bấm nút login
     public void onGoogleLoginClick() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -108,23 +103,19 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
 
         GoogleSignInClient googleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Sign out trước khi login để đảm bảo lần bấm sau vẫn hiển thị UI
         googleSignInClient.signOut().addOnCompleteListener(task -> {
-            // tạo mới Intent và launch
             Intent signInIntent = googleSignInClient.getSignInIntent();
             googleLoginLauncher.launch(signInIntent);
         });
     }
 
-    // 3️⃣ Xử lý kết quả sign-in
     private void handleSignInResult(Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
 
-            // Lấy access token trong thread riêng
             new Thread(() -> {
                 try {
-                    String scope = "oauth2:profile email"; // trùng với backend cần
+                    String scope = "oauth2:profile email";
                     String accessToken = GoogleAuthUtil.getToken(getApplicationContext(), account.getEmail(), scope);
                     Log.d("GOOGLE", "Access Token: " + accessToken);
 
@@ -133,7 +124,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
                     runOnUiThread(() -> viewModel.googleLogin(request));
 
                 } catch (UserRecoverableAuthException e) {
-                    // cần show dialog để user cho quyền
                     startActivity(e.getIntent());
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -184,7 +174,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding, LoginViewM
                     viewBinding.mgsErEmail.setText(R.string.err_email);
                     viewBinding.mgsErEmail.setVisibility(View.VISIBLE);
                 }else if (!isValidEmail(email)) {
-                    // Nếu sai định dạng
                     viewBinding.email.setBackgroundResource(R.drawable.bg_text_box_select);
                     viewBinding.mgsErEmail.setText(R.string.err_email_2);
                     viewBinding.mgsErEmail.setVisibility(View.VISIBLE);

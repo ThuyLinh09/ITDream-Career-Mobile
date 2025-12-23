@@ -3,12 +3,16 @@ package graduate.itdreams.android.ui.main.account;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,9 +39,11 @@ import timber.log.Timber;
 
 public class EditProfileViewModel extends BaseViewModel {
     public final MutableLiveData<String> fullname = new MutableLiveData<>("");
-    public final MutableLiveData<String> email = new MutableLiveData<>("");
+    public final MutableLiveData<String> phone = new MutableLiveData<>("");
     public final MutableLiveData<String> birthday = new MutableLiveData<>("");
     public final MutableLiveData<String> username = new MutableLiveData<>("");
+    public final MutableLiveData<String> avatarPath = new MutableLiveData<>("");
+
     public MutableLiveData<Boolean> isSuccess = new MutableLiveData<>();
 
     MutableLiveData<Bitmap> avatarLiveData = new MutableLiveData<>();
@@ -45,7 +51,17 @@ public class EditProfileViewModel extends BaseViewModel {
         super(repository, application);
     }
 
-    public void updateProfile(StudentUpdateProfileRequest request) {
+    public void updateProfile() {
+        StudentUpdateProfileRequest request = new StudentUpdateProfileRequest();
+        request.setPhone(phone.getValue());
+        request.setUsername(username.getValue());
+        request.setAvatarPath(avatarPath.getValue());
+        request.setFullName(fullname.getValue());
+        if (birthday.getValue() != null) {
+            SimpleDateFormat apiFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+            String formattedBirthDate = apiFormat.format(birthday.getValue());
+            request.setBirthday(formattedBirthDate);
+        }
         showLoading();
         compositeDisposable.add(repository.getApiService().update(request)
                 .subscribeOn(Schedulers.io())
@@ -77,21 +93,41 @@ public class EditProfileViewModel extends BaseViewModel {
                         }));
     }
     public void loadAvatar(String url){
-        compositeDisposable.add(repository.getUploadApiService().loadFile(url)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( responseBody ->  {
-                    InputStream inputStream = responseBody.byteStream();
-                    Bitmap bitmap = ImageUtils.getBitmap(inputStream);
+
+        if (url.startsWith("https://") || url.startsWith("http://")) {
+            new Thread(() -> {
+                try {
+                    URL imageUrl = new URL(url);
+                    HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
+                    connection.setDoInput(true);
+                    connection.connect();
+                    InputStream input = connection.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(input);
+                    input.close();
                     if (bitmap != null) {
                         avatarLiveData.setValue(bitmap);
-                    } else {
-                        Log.e("ProfileViewModel", "Lỗi: Bitmap rỗng");
                     }
-                }, throwable -> {
-                    Log.e("ProfileViewModel", "Lỗi khi tải ảnh: " + throwable.getMessage());
-                })
-        );
+                } catch (Exception e) {
+                    Log.e("ProfileViewModel", "Lỗi khi tải ảnh từ URL: " + e.getMessage());
+                }
+            }).start();
+        }else {
+            compositeDisposable.add(repository.getUploadApiService().loadFile(url)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(responseBody -> {
+                        InputStream inputStream = responseBody.byteStream();
+                        Bitmap bitmap = ImageUtils.getBitmap(inputStream);
+                        if (bitmap != null) {
+                            avatarLiveData.setValue(bitmap);
+                        } else {
+                            Log.e("ProfileViewModel", "Lỗi: Bitmap rỗng");
+                        }
+                    }, throwable -> {
+                        Log.e("ProfileViewModel", "Lỗi khi tải ảnh: " + throwable.getMessage());
+                    })
+            );
+        }
 
     }
     public void loadProfile() {
@@ -113,8 +149,9 @@ public class EditProfileViewModel extends BaseViewModel {
                         response -> {
                             hideLoading();
                             fullname.setValue(response.getData().getProfileAccountDto().getFullName());
-                            email.setValue(response.getData().getProfileAccountDto().getEmail());
+                            phone.setValue(response.getData().getProfileAccountDto().getPhone());
                             username.setValue(response.getData().getProfileAccountDto().getUsername());
+                            avatarPath.setValue(response.getData().getProfileAccountDto().getAvatar());
                             loadAvatar(response.getData().getProfileAccountDto().getAvatar());
 
                             String birthdayStr = response.getData().getBirthday();
@@ -142,15 +179,15 @@ public class EditProfileViewModel extends BaseViewModel {
                             }
                         }));
     }
-    public void onConfirmClicked(File imageFile, StudentUpdateProfileRequest request) {
+    public void onConfirmClicked(File imageFile) {
 
         if (imageFile != null) {
-            uploadImage(imageFile, true, request);
+            uploadImage(imageFile, true);
         } else {
-            updateProfile(request);
+            updateProfile();
         }
     }
-    public void uploadImage(File imageFile, boolean isForContact, StudentUpdateProfileRequest infoStudent) {
+    public void uploadImage(File imageFile, boolean isForContact) {
         if (imageFile == null || !imageFile.exists()) {
             showNormalMessage(getApplication().getString(R.string.invalid_image));
             return;
@@ -168,9 +205,9 @@ public class EditProfileViewModel extends BaseViewModel {
                     hideLoading();
                     if (response.isResult() && response.getData() != null) {
                         UploadResponse uploadedUrl = response.getData();
-                        infoStudent.setAvatarPath(uploadedUrl.getFilePath());
+                        avatarPath.setValue(uploadedUrl.getFilePath());
                         if (isForContact) {
-                            updateProfile(infoStudent);
+                            updateProfile();
                         }
                     }
                 }, throwable -> {
